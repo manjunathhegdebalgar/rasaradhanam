@@ -228,5 +228,25 @@ const EVENTS_DATA = [
     "registrationUrl": "https://www.google.com/search?q=304+error+code&oq=304+error+code&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDM0NjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
     "featured": true,
     "image": ""
+  },
+  {
+    "id": "evt1778307971874",
+    "title": "Something",
+    "date": "2026-05-30",
+    "time": "09:00",
+    "category": "Bharatanāṭyaṃ",
+    "artists": [
+      "Me"
+    ],
+    "description": "I don't dance",
+    "venue": {
+      "name": "GIPA",
+      "address": "Blr",
+      "mapEmbedUrl": "Request URL https://rasaaraadhanam.netlify.app/admin-config.js Request Method GET Status Code 404 Not Found"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
   }
 ];
