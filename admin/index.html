@@ -527,13 +527,34 @@
 <script src="../config.js"></script>
 <script src="../admin-config.js"></script>
 <script>
-// Fallback if admin-config.js is not set (remove after configuring)
-if (typeof ADMIN_USERS === 'undefined') {
-  console.warn('ADMIN_USERS not defined. Create admin-config.js or set env vars.');
-  const ADMIN_USERS = [
-    { username: 'admin', password: 'changeme' }
+// Load admin credentials - from admin-config.js, Netlify function, or fallback
+async function loadAdminConfig() {
+  // If already loaded from admin-config.js, use it
+  if (typeof ADMIN_USERS !== 'undefined' && ADMIN_USERS.length > 0) {
+    return;
+  }
+  
+  // Try to fetch from Netlify function (env vars)
+  try {
+    const res = await fetch('/.netlify/functions/config');
+    if (res.ok) {
+      const cfg = await res.json();
+      if (cfg.adminUser && cfg.adminPass) {
+        window.ADMIN_USERS = [{ username: cfg.adminUser, password: cfg.adminPass }];
+        return;
+      }
+    }
+  } catch(e) {
+    console.log('Config function not available, using fallback');
+  }
+  
+  // Final fallback
+  window.ADMIN_USERS = [
+    { username: 'admin', password: 'sangam@2025' }
   ];
 }
+
+// Initialize - will be called after auth check
 
 // ══════════════════════════════════════════
 // AUTH
@@ -541,7 +562,8 @@ if (typeof ADMIN_USERS === 'undefined') {
 function doLogin() {
   const u = document.getElementById('l-user').value.trim();
   const p = document.getElementById('l-pass').value;
-  const match = ADMIN_USERS.find(a => a.username === u && a.password === p);
+  const users = window.ADMIN_USERS || [];
+  const match = users.find(a => a.username === u && a.password === p);
   if (match) {
     sessionStorage.setItem('admin_auth', '1');
     document.getElementById('login-screen').style.display = 'none';
@@ -556,11 +578,15 @@ function doLogout() {
   location.reload();
 }
 document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-if (sessionStorage.getItem('admin_auth') === '1') {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('admin-shell').style.display = 'block';
-  initAdmin();
-}
+
+// Load admin config first, then check session
+loadAdminConfig().then(() => {
+  if (sessionStorage.getItem('admin_auth') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-shell').style.display = 'block';
+    initAdmin();
+  }
+});
 
 // ══════════════════════════════════════════
 // STATE — deep clone from embedded data
