@@ -525,33 +525,46 @@
 
 <script src="../events.js"></script>
 <script src="../config.js"></script>
-<script src="../admin-config.js"></script>
 <script>
-// Load admin credentials - from admin-config.js, Netlify function, or fallback
+// Load admin credentials - from Netlify function (env vars) or fallback
 async function loadAdminConfig() {
-  // If already loaded from admin-config.js, use it
-  if (typeof ADMIN_USERS !== 'undefined' && ADMIN_USERS.length > 0) {
-    return;
-  }
-  
-  // Try to fetch from Netlify function (env vars)
+  // Try to fetch from Netlify function (env vars) first
   try {
     const res = await fetch('/.netlify/functions/config');
     if (res.ok) {
       const cfg = await res.json();
       if (cfg.adminUser && cfg.adminPass) {
         window.ADMIN_USERS = [{ username: cfg.adminUser, password: cfg.adminPass }];
+        console.log('Loaded admin config from Netlify env vars');
         return;
       }
     }
   } catch(e) {
-    console.log('Config function not available, using fallback');
+    console.log('Config function not available or env vars not set');
   }
   
-  // Final fallback
-  window.ADMIN_USERS = [
-    { username: 'admin', password: 'sangam@2025' }
-  ];
+  // Try admin-config.js (for local development)
+  try {
+    const res = await fetch('../admin-config.js');
+    if (res.ok) {
+      const text = await res.text();
+      if (text.includes('ADMIN_USERS')) {
+        // File loaded, ADMIN_USERS should be defined via eval or script
+        // Since it's a script tag, it should auto-execute
+        await new Promise(r => setTimeout(r, 100));
+        if (typeof ADMIN_USERS !== 'undefined' && ADMIN_USERS.length > 0) {
+          return;
+        }
+      }
+    }
+  } catch(e) {
+    console.log('admin-config.js not available');
+  }
+  
+  // No fallback - show error if not configured
+  window.ADMIN_USERS = [];
+  console.warn('⚠️ Admin credentials not configured. Set ADMIN_USER and ADMIN_PASS in Netlify env vars.');
+  alert('Admin login not configured. Please contact administrator.');
 }
 
 // Initialize - will be called after auth check
@@ -563,6 +576,12 @@ function doLogin() {
   const u = document.getElementById('l-user').value.trim();
   const p = document.getElementById('l-pass').value;
   const users = window.ADMIN_USERS || [];
+  
+  if (users.length === 0) {
+    document.getElementById('login-error').textContent = 'Admin not configured. Contact administrator.';
+    return;
+  }
+  
   const match = users.find(a => a.username === u && a.password === p);
   if (match) {
     sessionStorage.setItem('admin_auth', '1');
