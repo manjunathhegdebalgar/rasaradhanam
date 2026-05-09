@@ -1,4 +1,4 @@
-// Netlify function to serve config including admin credentials from env vars
+// Netlify function to serve config including admin credentials and GitHub settings from env vars
 exports.handler = async function(event) {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -14,8 +14,11 @@ exports.handler = async function(event) {
   }
 
   const config = {
-    adminUser: process.env.ADMIN_USER || 'admin',
+    adminUser: process.env.ADMIN_USER || '',
     adminPass: process.env.ADMIN_PASS || '',
+    githubToken: process.env.GITHUB_TOKEN || '',
+    githubRepo: process.env.GITHUB_REPO || '',
+    githubBranch: process.env.GITHUB_BRANCH || 'master'
   };
   
   return {

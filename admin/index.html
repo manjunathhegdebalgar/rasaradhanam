@@ -472,20 +472,9 @@
           </div>
           <div class="config-card">
             <div class="config-card-title">Push to GitHub</div>
-            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Automatically commit changes to your GitHub repository. Requires your repo details.</p>
-            <div class="form-group" style="margin-bottom:0.75rem;">
-              <label>GitHub Token (stored in session only)</label>
-              <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
-            </div>
-            <div class="form-group" style="margin-bottom:0.75rem;">
-              <label>Repository (owner/repo)</label>
-              <input type="text" id="gh-repo" placeholder="yourname/rsārādhanaṃ" />
-            </div>
-            <div class="form-group" style="margin-bottom:1rem;">
-              <label>Branch</label>
-              <input type="text" id="gh-branch" value="main" />
-            </div>
-            <button class="btn btn-primary" onclick="pushToGitHub()">⬆ Commit & Push to GitHub</button>
+            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Push changes to your GitHub repository (configured via Netlify env vars).</p>
+            <p id="gh-config-status" style="font-size:0.8rem; color:var(--muted); margin-bottom:1rem; padding:0.5rem; background:var(--bg); border-radius:3px;">Checking configuration...</p>
+            <button class="btn btn-primary" id="push-btn" onclick="pushToGitHub()" disabled>⬆ Commit & Push to GitHub</button>
             <div id="gh-status" style="margin-top:0.75rem; font-size:0.82rem;"></div>
           </div>
         </div>
@@ -710,6 +699,28 @@ async function initAdmin() {
   renderEventsList();
   renderEventForm(null);
   renderConfigForm();
+  checkGitHubConfig();
+}
+
+async function checkGitHubConfig() {
+  const statusEl = document.getElementById('gh-config-status');
+  const pushBtn = document.getElementById('push-btn');
+  
+  try {
+    const res = await fetch('/.netlify/functions/config');
+    const cfg = await res.json();
+    
+    if (cfg.githubToken && cfg.githubRepo) {
+      statusEl.innerHTML = '✅ Configured: <strong>' + cfg.githubRepo + '</strong> (branch: ' + (cfg.githubBranch || 'master') + ')';
+      pushBtn.disabled = false;
+    } else {
+      statusEl.innerHTML = '⚠️ GitHub not configured. Set GITHUB_TOKEN, GITHUB_REPO in Netlify env vars.';
+      pushBtn.disabled = true;
+    }
+  } catch(e) {
+    statusEl.innerHTML = '❌ Cannot connect to config function.';
+    pushBtn.disabled = true;
+  }
 }
 
 // ══════════════════════════════════════════
@@ -1092,12 +1103,28 @@ function downloadFile(type) {
 }
 
 async function pushToGitHub() {
-  const token  = document.getElementById('gh-token').value.trim();
-  const repo   = document.getElementById('gh-repo').value.trim();
-  const branch = document.getElementById('gh-branch').value.trim() || 'main';
   const statusEl = document.getElementById('gh-status');
+  
+  // Get GitHub config from env vars
+  let ghConfig;
+  try {
+    const res = await fetch('/.netlify/functions/config');
+    ghConfig = await res.json();
+  } catch(e) {
+    statusEl.style.color='var(--danger)';
+    statusEl.textContent='Cannot fetch GitHub config. Check Netlify env vars.';
+    return;
+  }
 
-  if (!token || !repo) { statusEl.style.color='var(--danger)'; statusEl.textContent='Please enter GitHub token and repository.'; return; }
+  if (!ghConfig.githubToken || !ghConfig.githubRepo) {
+    statusEl.style.color='var(--danger)';
+    statusEl.textContent='GitHub not configured. Set GITHUB_TOKEN and GITHUB_REPO in Netlify.';
+    return;
+  }
+
+  const token = ghConfig.githubToken;
+  const repo = ghConfig.githubRepo;
+  const branch = ghConfig.githubBranch || 'master';
 
   statusEl.style.color='var(--info)'; statusEl.textContent='Pushing…';
 
@@ -1127,7 +1154,7 @@ async function pushToGitHub() {
       if (!putRes.ok) throw new Error(`Failed to push ${file.path}: ${(await putRes.json()).message}`);
     }
     statusEl.style.color='var(--success)';
-    statusEl.textContent='✓ Pushed successfully! Netlify will deploy in ~30 seconds.';
+    statusEl.textContent='✓ Pushed to ' + repo + ' (' + branch + '). Netlify will deploy in ~30 seconds.';
     showToast('Pushed to GitHub', 'success');
   } catch(e) {
     statusEl.style.color='var(--danger)';
