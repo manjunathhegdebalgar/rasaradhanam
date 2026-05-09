@@ -1,0 +1,14 @@
+# Admin credentials - keep local only
+admin-config.js
+
+# Local env files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Rasārādhanaṃ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lora:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #8B1A1A;
+      --accent: #C9922A;
+      --bg: #F7F3EC;
+      --surface: #FFFDF7;
+      --border: #D4B896;
+      --text: #1A1208;
+      --muted: #6B5B3E;
+      --danger: #B91C1C;
+      --success: #16A34A;
+      --info: #1D4ED8;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Lora', serif;
+      --font-mono: 'DM Mono', monospace;
+      --radius: 6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 2 L58 30 L30 58 L2 30 Z' fill='none' stroke='%23FDF8F0' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
+    }
+    .login-box {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 2.5rem;
+      width: 100%; max-width: 360px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+    .login-logo {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    .login-logo span { color: var(--accent); font-style: italic; }
+    .login-tagline { text-align: center; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+    .login-box label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; margin-top: 1rem; }
+    .login-box input {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--primary); }
+    .login-btn {
+      width: 100%; margin-top: 1.5rem;
+      padding: 0.75rem;
+      background: var(--primary);
+      color: #FDF8F0;
+      border: none; border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: #6e1414; }
+    .login-error { color: var(--danger); font-size: 0.82rem; text-align: center; margin-top: 0.75rem; min-height: 1.2em; }
+
+    /* ── ADMIN SHELL ── */
+    #admin-shell { display: none; }
+
+    .admin-topbar {
+      background: var(--primary);
+      height: 54px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .admin-topbar-brand {
+      font-family: var(--font-heading);
+      color: #FDF8F0;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    .admin-topbar-brand span { color: var(--accent); font-style: italic; }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .btn-preview {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(253,248,240,0.8); text-decoration: none;
+      border: 1px solid rgba(253,248,240,0.3);
+      padding: 0.35rem 0.85rem; border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .btn-preview:hover { background: rgba(253,248,240,0.1); color: #FDF8F0; }
+    .btn-logout { background: none; border: none; color: rgba(253,248,240,0.6); cursor: pointer; font-size: 0.8rem; }
+    .btn-logout:hover { color: #FDF8F0; }
+
+    /* ── LAYOUT ── */
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 54px);
+    }
+    .admin-sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.25rem 0;
+      position: sticky; top: 54px;
+      height: calc(100vh - 54px);
+      overflow-y: auto;
+    }
+    .sidebar-section { padding: 0.5rem 1rem 0.25rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .sidebar-btn {
+      display: block; width: 100%;
+      padding: 0.65rem 1.25rem;
+      background: none; border: none;
+      text-align: left; cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--text);
+      transition: background 0.15s, color 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-btn:hover { background: rgba(139,26,26,0.06); }
+    .sidebar-btn.active { background: rgba(139,26,26,0.08); border-left-color: var(--primary); color: var(--primary); font-weight: 500; }
+    .sidebar-count {
+      float: right;
+      background: var(--accent);
+      color: #FDF8F0;
+      font-size: 0.65rem;
+      border-radius: 10px;
+      padding: 0.1rem 0.45rem;
+      margin-top: 0.1rem;
+    }
+
+    /* ── CONTENT ── */
+    .admin-content { padding: 2rem 1.75rem; }
+    .content-section { display: none; }
+    .content-section.active { display: block; }
+
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 400;
+    }
+    .page-subtitle { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.1rem;
+      border: none; border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: #FDF8F0; }
+    .btn-primary:hover { background: #6e1414; }
+    .btn-accent { background: var(--accent); color: #FDF8F0; }
+    .btn-accent:hover { background: #a87520; }
+    .btn-danger { background: var(--danger); color: #FFF; }
+    .btn-danger:hover { background: #991b1b; }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-success { background: var(--success); color: #FFF; }
+
+    /* ── EVENT LIST ── */
+    .event-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .event-list-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      transition: box-shadow 0.2s;
+    }
+    .event-list-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .event-list-item.past-item { opacity: 0.65; }
+    .eli-left { flex: 1; }
+    .eli-title { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .eli-meta { font-size: 0.78rem; color: var(--muted); }
+    .eli-badges { display: flex; gap: 0.4rem; margin-top: 0.4rem; flex-wrap: wrap; }
+    .badge {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 3px;
+    }
+    .badge-cat { background: rgba(139,26,26,0.1); color: var(--primary); }
+    .badge-reg { background: rgba(22,163,74,0.12); color: #15803d; }
+    .badge-past { background: rgba(107,91,62,0.12); color: var(--muted); }
+    .eli-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(26,18,8,0.6);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: 8px;
+      width: 100%; max-width: 720px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      overflow: hidden;
+      animation: slideIn 0.25s ease;
+      margin: auto;
+    }
+    @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-header {
+      background: var(--primary);
+      padding: 1.1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-title { font-family: var(--font-heading); color: #FDF8F0; font-size: 1.4rem; font-weight: 400; }
+    .modal-close { background: none; border: none; color: rgba(253,248,240,0.7); cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 0.2rem; }
+    .modal-close:hover { color: #FDF8F0; }
+    .modal-body { padding: 1.5rem; }
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 0.75rem;
+    }
+
+    /* ── FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+    .form-group input[type="date"],
+    .form-group input[type="time"] { cursor: pointer; }
+    .toggle-group {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+    }
+    .toggle-label { font-size: 0.88rem; color: var(--text); flex: 1; }
+    .toggle-switch {
+      position: relative; width: 40px; height: 22px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--border);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px; height: 16px;
+      left: 3px; top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input:checked + .toggle-slider { background: var(--success); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); }
+    .form-section-title {
+      font-family: var(--font-heading); font-size: 1.1rem;
+      color: var(--primary); margin: 1.25rem 0 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--border);
+      grid-column: 1 / -1;
+    }
+    .hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── CONFIG SECTION ── */
+    .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .config-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .config-card-title { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary); }
+    .color-row { display: flex; align-items: center; gap: 0.75rem; }
+    .color-row input[type="color"] {
+      width: 42px; height: 36px;
+      padding: 2px; border: 1.5px solid var(--border);
+      border-radius: 4px; cursor: pointer; background: var(--bg);
+      flex-shrink: 0;
+    }
+    .color-row input[type="text"] {
+      flex: 1; padding: 0.5rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font-mono); font-size: 0.85rem;
+      background: var(--bg); color: var(--text); outline: none;
+    }
+
+    /* ── SAVE BAR ── */
+    .save-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 0.85rem 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .save-bar.visible { transform: translateY(0); }
+    .save-status { font-size: 0.82rem; color: var(--muted); }
+    .save-status.saving { color: var(--info); }
+    .save-status.saved { color: var(--success); }
+    .save-status.error { color: var(--danger); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 80px; right: 1.5rem; z-index: 600;
+      background: var(--text); color: #FDF8F0;
+      padding: 0.75rem 1.25rem; border-radius: var(--radius);
+      font-size: 0.85rem;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--danger); }
+
+    @media (max-width: 768px) {
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .config-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ LOGIN SCREEN ════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Rasārādhanaṃ</div>
+    <div class="login-tagline">Admin Dashboard</div>
+    <label for="l-user">Username</label>
+    <input type="text" id="l-user" autocomplete="username" placeholder="Enter username" />
+    <label for="l-pass">Password</label>
+    <input type="password" id="l-pass" autocomplete="current-password" placeholder="Enter password" />
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ ADMIN SHELL ════════════════════ -->
+<div id="admin-shell">
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">Rasārādhanaṃ — Admin</div>
+    <div class="topbar-right">
+      <a class="btn-preview" href="../index.html" target="_blank">↗ Preview Site</a>
+      <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <p class="sidebar-section">Events</p>
+      <button class="sidebar-btn active" onclick="showSection('events')">
+        All Events <span class="sidebar-count" id="sidebar-count">0</span>
+      </button>
+      <button class="sidebar-btn" onclick="showSection('add')">Add New Event</button>
+      <p class="sidebar-section" style="margin-top:1rem;">Settings</p>
+      <button class="sidebar-btn" onclick="showSection('config')">Site Configuration</button>
+      <button class="sidebar-btn" onclick="showSection('export')">Export / Deploy</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-content">
+
+      <!-- ── EVENTS LIST ── -->
+      <section class="content-section active" id="section-events">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">All Events</h1>
+            <p class="page-subtitle">Sorted by date. Click Edit to modify an event.</p>
+          </div>
+          <button class="btn btn-primary" onclick="showSection('add')">+ Add Event</button>
+        </div>
+        <div class="event-list" id="events-list-el"></div>
+      </section>
+
+      <!-- ── ADD EVENT ── -->
+      <section class="content-section" id="section-add">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="form-section-title">Add New Event</h1>
+            <p class="page-subtitle">Fill in the details below. Fields marked * are required.</p>
+          </div>
+          <button class="btn btn-ghost" onclick="showSection('events')">← Back</button>
+        </div>
+        <div id="event-form-wrapper"></div>
+      </section>
+
+      <!-- ── CONFIG ── -->
+      <section class="content-section" id="section-config">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Site Configuration</h1>
+            <p class="page-subtitle">Edit site name, styling, and contact info.</p>
+          </div>
+        </div>
+        <div id="config-form-wrapper"></div>
+      </section>
+
+      <!-- ── EXPORT ── -->
+      <section class="content-section" id="section-export">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Export & Deploy</h1>
+            <p class="page-subtitle">Download updated data files or push to GitHub.</p>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem; max-width:600px;">
+          <div class="config-card">
+            <div class="config-card-title">Download Data Files</div>
+            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Download the current events and config as JS files to deploy manually.</p>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="downloadFile('events')">⬇ events.js</button>
+              <button class="btn btn-accent" onclick="downloadFile('config')">⬇ config.js</button>
+            </div>
+          </div>
+          <div class="config-card">
+            <div class="config-card-title">Push to GitHub</div>
+            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Automatically commit changes to your GitHub repository. Requires your repo details.</p>
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label>GitHub Token (stored in session only)</label>
+              <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
+            </div>
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label>Repository (owner/repo)</label>
+              <input type="text" id="gh-repo" placeholder="yourname/rsārādhanaṃ" />
+            </div>
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label>Branch</label>
+              <input type="text" id="gh-branch" value="main" />
+            </div>
+            <button class="btn btn-primary" onclick="pushToGitHub()">⬆ Commit & Push to GitHub</button>
+            <div id="gh-status" style="margin-top:0.75rem; font-size:0.82rem;"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ── EVENT EDIT/ADD MODAL ── -->
+<div class="modal-overlay" id="event-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title-text">Edit Event</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveModalEvent()">Save Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SAVE BAR ── -->
+<div class="save-bar" id="save-bar">
+  <div class="save-status" id="save-status">Unsaved changes</div>
+  <div style="display:flex; gap:0.75rem; align-items:center;">
+    <button class="btn btn-ghost" onclick="discardChanges()">Discard</button>
+    <button class="btn btn-success" onclick="saveAll()">Save All Changes</button>
+    <button onclick="document.getElementById('save-bar').classList.remove('visible')" title="Close" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.2rem;line-height:1;padding:0.2rem 0.4rem;margin-left:0.25rem;" aria-label="Close save bar">✕</button>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script src="../events.js"></script>
+<script src="../config.js"></script>
+<script src="../admin-config.js"></script>
+<script>
+// Fallback if admin-config.js is not set (remove after configuring)
+if (typeof ADMIN_USERS === 'undefined') {
+  console.warn('ADMIN_USERS not defined. Create admin-config.js or set env vars.');
+  const ADMIN_USERS = [
+    { username: 'admin', password: 'changeme' }
+  ];
+}
+
+// ══════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════
+function doLogin() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value;
+  const match = ADMIN_USERS.find(a => a.username === u && a.password === p);
+  if (match) {
+    sessionStorage.setItem('admin_auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-shell').style.display = 'block';
+    initAdmin();
+  } else {
+    document.getElementById('login-error').textContent = 'Invalid credentials. Please try again.';
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('admin_auth');
+  location.reload();
+}
+document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+if (sessionStorage.getItem('admin_auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-shell').style.display = 'block';
+  initAdmin();
+}
+
+// ══════════════════════════════════════════
+// STATE — deep clone from embedded data
+// ══════════════════════════════════════════
+// We inline events/config here; in production the save API writes back to the JS files.
+// Load from localStorage if available (persists between admin sessions in same browser)
+let eventsData, siteConfig;
+
+async function loadState() {
+  console.log('Loading state...');
+  
+  let loadedFromFetch = false;
+  
+  // Try fetch first
+  try {
+    console.log('Fetching events.js...');
+    const eventsRes = await fetch('../events.js');
+    if (eventsRes.ok) {
+      const eventsText = await eventsRes.text();
+      const match = eventsText.match(/const EVENTS_DATA = (\[[\s\S]*?\]);/);
+      if (match) {
+        eventsData = JSON.parse(match[1]);
+        console.log('Loaded events from file:', eventsData.length);
+        loadedFromFetch = true;
+      }
+    }
+  } catch(e) {
+    console.log('Fetch failed, trying script tags or localStorage');
+  }
+  
+  // If fetch didn't work, try script tags (works if served properly)
+  if (!loadedFromFetch && typeof EVENTS_DATA !== 'undefined' && EVENTS_DATA.length > 0) {
+    eventsData = [...EVENTS_DATA];
+    console.log('Loaded from script tag:', eventsData.length);
+  }
+  
+  // Fallback to localStorage
+  if (!eventsData || !eventsData.length) {
+    const savedEv = localStorage.getItem('sv_events');
+    if (savedEv) {
+      eventsData = JSON.parse(savedEv);
+      console.log('Loaded from localStorage');
+    }
+  }
+  
+  // Final fallback to defaults
+  if (!eventsData || !eventsData.length) {
+    eventsData = getDefaultEvents();
+    console.log('Using default events');
+  }
+  
+  // Same for config - try fetch first
+  try {
+    const configRes = await fetch('../config.js');
+    if (configRes.ok) {
+      const configText = await configRes.text();
+      const match = configText.match(/const SITE_CONFIG = (\{[\s\S]*?\});/);
+      if (match) {
+        siteConfig = JSON.parse(match[1]);
+      }
+    }
+  } catch(e) {
+    // Try script tag
+    if (typeof SITE_CONFIG !== 'undefined') {
+      siteConfig = { ...SITE_CONFIG };
+    } else {
+      const savedCfg = localStorage.getItem('sv_config');
+      if (savedCfg) siteConfig = JSON.parse(savedCfg);
+    }
+  }
+  
+  if (!siteConfig) {
+    siteConfig = getDefaultConfig();
+  }
+  
+  console.log('State loaded, events:', eventsData.length);
+}
+
+function getDefaultEvents() {
+  // Inline defaults (mirrored from events.js)
+  return [
+    { id:"evt001", title:"Thyagaraja Aradhana Sabha", description:"A grand celebration of Thyagaraja's compositions featuring leading Carnatic vocalists performing the Pancharatna Kritis and rare compositions.", date:"2025-02-14", time:"17:00", category:"Carnatic Vocal", artists:["Sudha Raghunathan","T.M. Krishna"], venue:{ name:"Chowdiah Memorial Hall", address:"Vyalikaval, Bengaluru, Karnataka 560003", mapEmbedUrl:"" }, registrationEnabled:false, registrationUrl:"", image:"", featured:true },
+    { id:"evt002", title:"Sadir Utsav — Bharatanatyam Festival", description:"A three-day Bharatanatyam festival showcasing performances by emerging and established dancers.", date:"2025-03-08", time:"18:30", category:"Bharatanatyam", artists:["Alarmel Valli","Malavika Sarukkai"], venue:{ name:"Ravindra Kalakshetra", address:"J.C. Road, Bengaluru, Karnataka 560002", mapEmbedUrl:"" }, registrationEnabled:true, registrationUrl:"https://bookmyshow.com/events/sadir-utsav", image:"", featured:false },
+    { id:"evt003", title:"Raga Rasa — An Evening of Hindustani Music", description:"A contemplative evening of Khayal and Thumri by maestros of the Jaipur-Atrauli and Kirana gharanas.", date:"2025-04-19", time:"19:00", category:"Hindustani Vocal", artists:["Rashid Khan","Ashwini Bhide Deshpande"], venue:{ name:"Siri Fort Auditorium", address:"August Kranti Marg, New Delhi 110049", mapEmbedUrl:"" }, registrationEnabled:true, registrationUrl:"https://insider.in/raga-rasa-2025", image:"", featured:true },
+    { id:"evt004", title:"Natya Sangam — Classical Dance Symposium", description:"Scholars and practitioners come together for a symposium on classical Indian dance.", date:"2024-11-10", time:"10:00", category:"Dance Symposium", artists:["Leela Samson","C.V. Chandrasekhar"], venue:{ name:"Sangeet Natak Akademi", address:"Rabindra Bhavan, Ferozeshah Road, New Delhi 110001", mapEmbedUrl:"" }, registrationEnabled:false, registrationUrl:"", image:"", featured:false },
+    { id:"evt005", title:"Veena Vaibhavam", description:"A rare solo veena concert followed by a jugalbandi with flute.", date:"2024-12-21", time:"18:00", category:"Carnatic Instrumental", artists:["Jayanthi Kumaresh","Pravin Godkhindi"], venue:{ name:"Bharat Kalachar", address:"11, South Mada Street, Mylapore, Chennai 600004", mapEmbedUrl:"" }, registrationEnabled:true, registrationUrl:"https://bookmyshow.com/events/veena-vaibhavam", image:"", featured:false }
+  ];
+}
+
+function getDefaultConfig() {
+  return { siteName:"Rasārādhanaṃ", tagline:"A Celebration of Indian Classical Arts", description:"Curated concerts and festivals bringing together the finest voices, instruments, and dance forms of India's classical traditions.", contactEmail:"info@sangamutsav.in", contactPhone:"+91 98765 43210", socialLinks:{ instagram:"https://instagram.com/sangamutsav", youtube:"https://youtube.com/@sangamutsav" }, style:{ primaryColor:"#8B1A1A", accentColor:"#C9922A", backgroundColor:"#FDF8F0", textColor:"#1A1208", fontHeading:"Cormorant Garamond", fontBody:"Lora", cardStyle:"bordered", heroPattern:"rangoli" } };
+}
+
+let dirty = false;
+let editingEventId = null;
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+async function initAdmin() {
+  await loadState();
+  renderEventsList();
+  renderEventForm(null);
+  renderConfigForm();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function showSection(name) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelectorAll('.sidebar-btn').forEach(b => {
+    if (b.textContent.trim().toLowerCase().startsWith(name === 'add' ? 'add' : name === 'events' ? 'all' : name)) b.classList.add('active');
+  });
+  if (name === 'add') {
+    document.getElementById('form-section-title').textContent = 'Add New Event';
+    renderEventForm(null);
+  }
+}
+
+// ══════════════════════════════════════════
+// EVENTS LIST
+// ══════════════════════════════════════════
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function isPast(date, time) {
+  const [y,mo,d] = date.split('-').map(Number);
+  const [h,mi] = time.split(':').map(Number);
+  return new Date(y, mo-1, d, h, mi) < new Date();
+}
+
+function renderEventsList() {
+  const sorted = [...eventsData].sort((a,b) => new Date(a.date+'T'+a.time) - new Date(b.date+'T'+b.time));
+  const el = document.getElementById('events-list-el');
+  const count = document.getElementById('sidebar-count');
+  count.textContent = eventsData.length;
+
+  if (!sorted.length) { el.innerHTML = '<p style="color:var(--muted); font-style:italic;">No events yet. Add your first event.</p>'; return; }
+
+  el.innerHTML = sorted.map(ev => {
+    const past = isPast(ev.date, ev.time);
+    const [y,mo,d] = ev.date.split('-').map(Number);
+    const [h,mi] = ev.time.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hour = h % 12 || 12;
+    return `
+    <div class="event-list-item${past ? ' past-item' : ''}">
+      <div class="eli-left">
+        <div class="eli-title">${ev.title}</div>
+        <div class="eli-meta">${d} ${MONTHS[mo-1]} ${y} · ${hour}:${String(mi).padStart(2,'0')} ${ampm} · ${ev.venue.name}</div>
+        <div class="eli-meta" style="margin-top:0.2rem;">${ev.artists.join(', ')}</div>
+        <div class="eli-badges">
+          <span class="badge badge-cat">${ev.category}</span>
+          ${ev.registrationEnabled ? '<span class="badge badge-reg">Registration On</span>' : ''}
+          ${past ? '<span class="badge badge-past">Past</span>' : ''}
+        </div>
+      </div>
+      <div class="eli-actions">
+        <button class="btn btn-ghost" onclick="openEditModal('${ev.id}')">Edit</button>
+        <button class="btn btn-danger" onclick="deleteEvent('${ev.id}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════
+// EVENT FORM (inline for Add)
+// ══════════════════════════════════════════
+function eventFormHTML(ev) {
+  const isEdit = !!ev;
+  const v = ev || { id:'', title:'', description:'', date:'', time:'09:00', category:'Carnatic Vocal', artists:[], venue:{ name:'', address:'', mapEmbedUrl:'' }, registrationEnabled:false, registrationUrl:'', image:'', featured:false };
+  const artistsStr = Array.isArray(v.artists) ? v.artists.join(', ') : v.artists;
+  const categories = ['Avadhāna​','Carnatic Music','Hindustani Music','Vidvadgoṣṭhi','Bharatanāṭyaṃ','Kathak',, 'Tāl̤amaddal̤ĕ', 'Other'];
+  const catOptions = categories.map(c => `<option value="${c}" ${v.category===c?'selected':''}>${c}</option>`).join('');
+
+  return `
+  <div class="form-grid" id="event-form-fields">
+    <div class="form-group form-full">
+      <label>Event Title *</label>
+      <input type="text" id="f-title" value="${esc(v.title)}" placeholder="e.g. Avadhāna"/>
+    </div>
+    <div class="form-group">
+      <label>Date *</label>
+      <input type="date" id="f-date" value="${v.date}" />
+    </div>
+    <div class="form-group">
+      <label>Time *</label>
+      <input type="time" id="f-time" value="${v.time}" />
+      <p class="hint">Use 24-hour format (e.g. 18:30 for 6:30 PM)</p>
+    </div>
+    <div class="form-group">
+      <label>Category *</label>
+      <select id="f-category">${catOptions}</select>
+    </div>
+    <div class="form-group">
+      <label>Artists (comma separated)</label>
+      <input type="text" id="f-artists" value="${esc(artistsStr)}" placeholder="Artist One, Artist Two" />
+    </div>
+    <div class="form-group form-full">
+      <label>Description</label>
+      <textarea id="f-description" rows="3" placeholder="Brief description of the event...">${esc(v.description)}</textarea>
+    </div>
+
+    <div class="form-section-title">Venue Details</div>
+    <div class="form-group">
+      <label>Venue Name *</label>
+      <input type="text" id="f-venue-name" value="${esc(v.venue.name)}" placeholder="e.g. GIPA" />
+    </div>
+    <div class="form-group">
+      <label>Full Address</label>
+      <input type="text" id="f-venue-address" value="${esc(v.venue.address)}" placeholder="Street, City, State PIN" />
+    </div>
+    <div class="form-group form-full">
+      <label>Google Maps Embed URL</label>
+      <input type="text" id="f-venue-map" value="${esc(v.venue.mapEmbedUrl)}" placeholder="https://www.google.com/maps/embed?pb=..." />
+      <p class="hint">In Google Maps: Share → Embed a map → Copy the src="..." URL only</p>
+    </div>
+
+    <div class="form-section-title">Registration</div>
+    <div class="form-group form-full">
+      <div class="toggle-group">
+        <span class="toggle-label">Enable Registration Link</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="f-reg-enabled" ${v.registrationEnabled ? 'checked' : ''} onchange="toggleRegUrl()" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="form-group form-full" id="f-reg-url-group" style="${v.registrationEnabled ? '' : 'display:none'}">
+      <label>Registration / Booking URL *</label>
+      <input type="url" id="f-reg-url" value="${esc(v.registrationUrl)}" placeholder="https://bookmyshow.com/..." />
+    </div>
+
+    <div class="form-section-title">Display Options</div>
+    <div class="form-group form-full">
+      <div class="toggle-group">
+        <span class="toggle-label">Feature this event (shown prominently)</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="f-featured" ${v.featured ? 'checked' : ''} />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleRegUrl() {
+  const enabled = document.getElementById('f-reg-enabled').checked;
+  document.getElementById('f-reg-url-group').style.display = enabled ? '' : 'none';
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderEventForm(ev) {
+  document.getElementById('event-form-wrapper').innerHTML = `
+    ${eventFormHTML(ev)}
+    <div style="margin-top:1.5rem; display:flex; gap:0.75rem;">
+      <button class="btn btn-primary" onclick="saveInlineEvent()">Save Event</button>
+      <button class="btn btn-ghost" onclick="showSection('events')">Cancel</button>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// MODAL (Edit)
+// ══════════════════════════════════════════
+function openEditModal(id) {
+  editingEventId = id;
+  const ev = eventsData.find(e => e.id === id);
+  document.getElementById('modal-title-text').textContent = 'Edit Event';
+  document.getElementById('modal-body').innerHTML = eventFormHTML(ev);
+  document.getElementById('event-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('event-modal').classList.remove('open');
+  editingEventId = null;
+}
+
+function collectFormData(prefix) {
+  const $ = id => document.getElementById(id);
+  return {
+    title:               $('f-title').value.trim(),
+    date:                $('f-date').value,
+    time:                $('f-time').value,
+    category:            $('f-category').value,
+    artists:             $('f-artists').value.split(',').map(a => a.trim()).filter(Boolean),
+    description:         $('f-description').value.trim(),
+    venue: {
+      name:              $('f-venue-name').value.trim(),
+      address:           $('f-venue-address').value.trim(),
+      mapEmbedUrl:       $('f-venue-map').value.trim()
+    },
+    registrationEnabled: $('f-reg-enabled').checked,
+    registrationUrl:     $('f-reg-url') ? $('f-reg-url').value.trim() : '',
+    featured:            $('f-featured').checked,
+    image:               ''
+  };
+}
+
+function saveModalEvent() {
+  const data = collectFormData();
+  if (!data.title || !data.date || !data.venue.name) { showToast('Please fill in required fields (Title, Date, Venue)', 'error'); return; }
+  const idx = eventsData.findIndex(e => e.id === editingEventId);
+  if (idx !== -1) {
+    eventsData[idx] = { ...eventsData[idx], ...data };
+    markDirty();
+    renderEventsList();
+    closeModal();
+    showToast('Event updated');
+  }
+}
+
+function saveInlineEvent() {
+  const data = collectFormData();
+  if (!data.title || !data.date || !data.venue.name) { showToast('Please fill required fields (Title, Date, Venue)', 'error'); return; }
+  const newId = 'evt' + Date.now();
+  eventsData.push({ id: newId, ...data });
+  markDirty();
+  renderEventsList();
+  showSection('events');
+  showToast('Event added');
+}
+
+function deleteEvent(id) {
+  if (!confirm('Delete this event? This cannot be undone.')) return;
+  eventsData = eventsData.filter(e => e.id !== id);
+  markDirty();
+  renderEventsList();
+  showToast('Event deleted');
+}
+
+// ══════════════════════════════════════════
+// CONFIG FORM
+// ══════════════════════════════════════════
+function renderConfigForm() {
+  const c = siteConfig;
+  const s = c.style;
+  document.getElementById('config-form-wrapper').innerHTML = `
+  <div class="config-grid">
+    <div class="config-card" style="grid-column:1/-1;">
+      <div class="config-card-title">Site Identity</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Site Name</label><input type="text" id="c-name" value="${esc(c.siteName)}" /></div>
+        <div class="form-group"><label>Tagline</label><input type="text" id="c-tagline" value="${esc(c.tagline)}" /></div>
+        <div class="form-group form-full"><label>Description</label><textarea id="c-desc" rows="2">${esc(c.description)}</textarea></div>
+        <div class="form-group"><label>Contact Email</label><input type="email" id="c-email" value="${esc(c.contactEmail)}" /></div>
+        <div class="form-group"><label>Contact Phone</label><input type="text" id="c-phone" value="${esc(c.contactPhone)}" /></div>
+        <div class="form-group"><label>Instagram URL</label><input type="url" id="c-ig" value="${esc(c.socialLinks.instagram)}" /></div>
+        <div class="form-group"><label>YouTube URL</label><input type="url" id="c-yt" value="${esc(c.socialLinks.youtube)}" /></div>
+      </div>
+    </div>
+
+    <div class="config-card">
+      <div class="config-card-title">Colors</div>
+      <div style="display:flex; flex-direction:column; gap:0.75rem;">
+        ${colorRow('Primary Color (Nav, buttons)', 'c-primary', s.primaryColor)}
+        ${colorRow('Accent Color (highlights)', 'c-accent', s.accentColor)}
+        ${colorRow('Background Color', 'c-bg', s.backgroundColor)}
+        ${colorRow('Text Color', 'c-textcolor', s.textColor)}
+      </div>
+    </div>
+
+    <div class="config-card">
+      <div class="config-card-title">Typography</div>
+      <div class="form-group">
+        <label>Heading Font</label>
+        <select id="c-font-heading">
+          ${['Cormorant Garamond','Playfair Display','EB Garamond','Libre Baskerville','Noto Serif','Yatra One'].map(f => `<option ${s.fontHeading===f?'selected':''}>${f}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:0.75rem;">
+        <label>Body Font</label>
+        <select id="c-font-body">
+          ${['Lora','Merriweather','Source Serif 4','Noto Serif','PT Serif'].map(f => `<option ${s.fontBody===f?'selected':''}>${f}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:1.5rem;">
+    <button class="btn btn-primary" onclick="saveConfig()">Save Configuration</button>
+  </div>`;
+}
+
+function colorRow(label, id, value) {
+  return `
+  <div class="form-group">
+    <label>${label}</label>
+    <div class="color-row">
+      <input type="color" id="${id}-picker" value="${value}" oninput="document.getElementById('${id}').value=this.value" />
+      <input type="text" id="${id}" value="${value}" oninput="syncColor('${id}')" />
+    </div>
+  </div>`;
+}
+
+function syncColor(id) {
+  const val = document.getElementById(id).value;
+  if (/^#[0-9A-Fa-f]{6}$/.test(val)) document.getElementById(id+'-picker').value = val;
+}
+
+function saveConfig() {
+  const $ = id => document.getElementById(id).value.trim();
+  siteConfig = {
+    siteName:     $('c-name'),
+    tagline:      $('c-tagline'),
+    description:  $('c-desc'),
+    contactEmail: $('c-email'),
+    contactPhone: $('c-phone'),
+    socialLinks: { instagram: $('c-ig'), youtube: $('c-yt') },
+    style: {
+      primaryColor:   $('c-primary'),
+      accentColor:    $('c-accent'),
+      backgroundColor:$('c-bg'),
+      textColor:      $('c-textcolor'),
+      fontHeading:    $('c-font-heading'),
+      fontBody:       $('c-font-body'),
+      cardStyle: siteConfig.style.cardStyle,
+      heroPattern: siteConfig.style.heroPattern
+    }
+  };
+  markDirty();
+  showToast('Configuration saved');
+}
+
+// ══════════════════════════════════════════
+// DIRTY / SAVE
+// ══════════════════════════════════════════
+function markDirty() {
+  dirty = true;
+  localStorage.setItem('sv_events', JSON.stringify(eventsData));
+  localStorage.setItem('sv_config', JSON.stringify(siteConfig));
+  document.getElementById('save-bar').classList.add('visible');
+  document.getElementById('save-status').textContent = 'Unsaved changes (saved to browser)';
+  document.getElementById('save-status').className = 'save-status';
+}
+
+async function discardChanges() {
+  if (!confirm('Discard all unsaved changes?')) return;
+  localStorage.removeItem('sv_events');
+  localStorage.removeItem('sv_config');
+  await loadState();
+  renderEventsList();
+  renderConfigForm();
+  dirty = false;
+  document.getElementById('save-bar').classList.remove('visible');
+  showToast('Changes discarded');
+}
+
+function saveAll() {
+  // Save to localStorage (always)
+  localStorage.setItem('sv_events', JSON.stringify(eventsData));
+  localStorage.setItem('sv_config', JSON.stringify(siteConfig));
+  const statusEl = document.getElementById('save-status');
+  statusEl.textContent = '✓ Saved to browser. Use Export tab to download files or push to GitHub.';
+  statusEl.className = 'save-status saved';
+  dirty = false;
+  showToast('Changes saved. Download from Export tab to deploy.', 'success');
+}
+
+// ══════════════════════════════════════════
+// EXPORT / GITHUB
+// ══════════════════════════════════════════
+function generateEventsJS() {
+  return `// =============================================================\n// EVENTS DATA — Auto-generated by Admin UI\n// =============================================================\nconst EVENTS_DATA = ${JSON.stringify(eventsData, null, 2)};\n`;
+}
+
+function generateConfigJS() {
+  return `// =============================================================\n// SITE CONFIG — Auto-generated by Admin UI\n// =============================================================\nconst SITE_CONFIG = ${JSON.stringify(siteConfig, null, 2)};\n`;
+}
+
+function downloadFile(type) {
+  const content = type === 'events' ? generateEventsJS() : generateConfigJS();
+  const filename = type === 'events' ? 'events.js' : 'config.js';
+  const blob = new Blob([content], { type: 'text/javascript' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  showToast(`${filename} downloaded`);
+}
+
+async function pushToGitHub() {
+  const token  = document.getElementById('gh-token').value.trim();
+  const repo   = document.getElementById('gh-repo').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim() || 'main';
+  const statusEl = document.getElementById('gh-status');
+
+  if (!token || !repo) { statusEl.style.color='var(--danger)'; statusEl.textContent='Please enter GitHub token and repository.'; return; }
+
+  statusEl.style.color='var(--info)'; statusEl.textContent='Pushing…';
+
+  const files = [
+    { path: 'events.js', content: generateEventsJS() },
+    { path: 'config.js', content: generateConfigJS() }
+  ];
+
+  try {
+    for (const file of files) {
+      // Get current SHA
+      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${file.path}?ref=${branch}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      const getSha = getRes.ok ? (await getRes.json()).sha : undefined;
+
+      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${file.path}`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Admin: update ${file.path}`,
+          content: btoa(unescape(encodeURIComponent(file.content))),
+          branch,
+          ...(getSha ? { sha: getSha } : {})
+        })
+      });
+      if (!putRes.ok) throw new Error(`Failed to push ${file.path}: ${(await putRes.json()).message}`);
+    }
+    statusEl.style.color='var(--success)';
+    statusEl.textContent='✓ Pushed successfully! Netlify will deploy in ~30 seconds.';
+    showToast('Pushed to GitHub', 'success');
+  } catch(e) {
+    statusEl.style.color='var(--danger)';
+    statusEl.textContent='Error: ' + e.message;
+  }
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' '+type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 3200);
+}
+
+// Close modal on backdrop click
+document.getElementById('event-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
