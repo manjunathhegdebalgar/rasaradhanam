@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event Details — Sangam Utsav</title>
+  <title>Event Details — Rasārādhanaṃ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -301,23 +301,18 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      main { grid-template-columns: 1fr; padding: 2rem 1rem 3rem; }
+      main { grid-template-columns: 1fr; }
       .sidebar { order: -1; }
     }
     @media (max-width: 480px) {
       .event-hero-meta { flex-direction: column; gap: 0.75rem; }
-      .event-hero { padding: 2rem 1rem 3rem; }
-      .event-hero-title { font-size: 1.8rem; }
-      .detail-section { padding: 1.25rem; }
-      .info-card-body { padding: 0.85rem; }
-      .concluded-banner { font-size: 0.78rem; padding: 0.6rem 0.8rem; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html" id="nav-brand">Sangam Utsav</a>
+  <a class="nav-brand" href="index.html" id="nav-brand">Rasārādhanaṃ</a>
   <a class="nav-back" href="index.html">← All Events</a>
 </nav>
 
@@ -329,9 +324,9 @@
 </main>
 
 <footer>
-  <p><strong id="footer-name">Sangam Utsav</strong></p>
-  <p><a id="footer-email" href="#">info@sangamutsav.in</a></p>
-  <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.5;">© <span id="footer-year"></span> Sangam Utsav. All rights reserved.</p>
+  <p><strong id="footer-name">Rasārādhanaṃ</strong></p>
+  <p><a id="footer-email" href="#">rasaradhanam@gmail.com</a></p>
+  <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.5;">© <span id="footer-year"></span> Rasārādhanaṃ. All rights reserved.</p>
 </footer>
 
 <script>
@@ -423,7 +418,7 @@
       <a class="btn-register-full" href="${ev.registrationUrl}" target="_blank" rel="noopener">Register / Book Tickets →</a>
     </div>` : '';
 
-  const concludedBanner = past ? `<div class="concluded-banner">This event has concluded. Please visit our <a href="${cfg.socialLinks.youtube || '#'}" target="_blank" rel="noopener" style="color:var(--primary);">YouTube channel</a> to view the recording.</div>` : '';
+  const concludedBanner = past ? `<div class="concluded-banner">This event has concluded.</div>` : '';
 
   const waBtn = `
     <a class="btn-whatsapp-full" href="https://wa.me/?text=${buildWAText()}" target="_blank" rel="noopener">

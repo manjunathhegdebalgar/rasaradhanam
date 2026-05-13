@@ -3,8 +3,8 @@
 // =============================================================
 const SITE_CONFIG = {
   "siteName": "Rasārādhanaṃ",
-  "tagline": "A Celebration of Indian Classical Arts",
-  "description": "Curated concerts and festivals bringing together the finest voices, instruments, and dance forms of India's classical traditions.",
+  "tagline": "A Celebration of Indian Classical Arts, Culture and Erudition",
+  "description": "A curated series of music, dance, discourse, and cultural gatherings celebrating the depth and continuity of Indian classical traditions.",
   "contactEmail": "rasaradhanam@gmail.com",
   "contactPhone": "+917349497814",
   "socialLinks": {
