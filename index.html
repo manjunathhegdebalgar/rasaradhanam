@@ -109,6 +109,14 @@
       margin: 0 auto;
       line-height: 1.7;
     }
+    .hero-logo {
+      max-height: 300px;
+      width: auto;
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .hero-ornament {
       margin: 1.5rem auto 0;
       display: flex; align-items: center; justify-content: center; gap: 0.75rem;
@@ -629,7 +637,10 @@
 </div>
 
 <nav>
-  <a class="nav-brand" href="index.html" id="nav-brand">Rasārādhanaṃ</a>
+  <a class="nav-brand" href="index.html" id="nav-brand">
+    <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;display:none;" />
+    <span>Rasārādhanaṃ</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#upcoming">Upcoming</a></li>
     <li><a href="#past">Past Events</a></li>
@@ -640,9 +651,10 @@
 <header class="hero">
   <div class="hero-pattern"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow" id="hero-eyebrow">◆ Classical Arts Series ◆</p>
+    <img id="hero-logo" class="hero-logo" src="logo.png" alt="Logo" style="display:none;" />
+    <p class="hero-eyebrow" id="hero-eyebrow">◆ Tribute to Śatāvadhāni Dr.R.Ganesh ◆</p>
     <h1 class="hero-title" id="hero-title">Rasārādhanaṃ</h1>
-    <p class="hero-sub" id="hero-sub">Series of classical events celebrating the rich tradition of Indian classical arts and erudition</p>
+    <p class="hero-sub" id="hero-sub">Rasārādhanaṃ is a series of classical events celebrating the rich tradition of Indian classical arts and erudition</p>
    <!--<div class="hero-ornament">ॐ</div> -->
   </div>
   <div class="hero-divider"></div>
@@ -751,6 +763,24 @@
   root.style.setProperty('--accent', s.accentColor);
   root.style.setProperty('--bg', s.backgroundColor);
   root.style.setProperty('--text', s.textColor);
+
+  // ── Show logo if exists, hide title when logo present ──
+  const titleEl = document.getElementById('hero-title');
+  
+  const logoImg = new Image();
+  logoImg.onload = function() {
+    // Logo found - hide title, show logo
+    const navLogo = document.getElementById('nav-logo');
+    if (navLogo) navLogo.style.display = 'inline';
+    const heroLogo = document.getElementById('hero-logo');
+    if (heroLogo) heroLogo.style.display = 'block';
+    if (titleEl) titleEl.style.display = 'none';
+  };
+  logoImg.onerror = function() {
+    // No logo - show title
+    if (titleEl) titleEl.style.display = 'block';
+  };
+  logoImg.src = 'logo.png';
 
   // ── Populate Contact Section ──
   document.getElementById('contact-email').textContent = cfg.contactEmail;
