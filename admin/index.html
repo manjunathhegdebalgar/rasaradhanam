@@ -536,18 +536,20 @@ async function loadAdminConfig() {
   try {
     const res = await fetch('../admin-config.js');
     if (res.ok) {
-      const text = await res.text();
-      if (text.includes('ADMIN_USERS')) {
-        // File loaded, ADMIN_USERS should be defined via eval or script
-        // Since it's a script tag, it should auto-execute
-        await new Promise(r => setTimeout(r, 100));
-        if (typeof ADMIN_USERS !== 'undefined' && ADMIN_USERS.length > 0) {
-          return;
-        }
+      // Load and execute the script
+      const script = document.createElement('script');
+      script.text = await res.text();
+      document.head.appendChild(script);
+      document.head.removeChild(script);
+      
+      await new Promise(r => setTimeout(r, 50));
+      if (typeof ADMIN_USERS !== 'undefined' && ADMIN_USERS.length > 0) {
+        console.log('Loaded admin config from admin-config.js');
+        return;
       }
     }
   } catch(e) {
-    console.log('admin-config.js not available');
+    console.log('admin-config.js not available:', e);
   }
   
   // No fallback - show error if not configured

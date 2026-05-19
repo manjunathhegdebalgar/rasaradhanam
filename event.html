@@ -312,7 +312,10 @@
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html" id="nav-brand">Rasārādhanaṃ</a>
+  <a class="nav-brand" href="index.html" id="nav-brand">
+    <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;display:none;" />
+    <span>Rasārādhanaṃ</span>
+  </a>
   <a class="nav-back" href="index.html">← All Events</a>
 </nav>
 
@@ -345,6 +348,15 @@
   root.style.setProperty('--accent', s.accentColor);
   root.style.setProperty('--bg', s.backgroundColor);
   root.style.setProperty('--text', s.textColor);
+
+  // ── Show logo if exists ──
+  const logoImg = new Image();
+  logoImg.onload = function() {
+    const navLogo = document.getElementById('nav-logo');
+    if (navLogo) navLogo.style.display = 'inline';
+  };
+  logoImg.onerror = function() { /* Logo not found */ };
+  logoImg.src = 'logo.png';
 
   // ── Get event ID from URL ──
   const params = new URLSearchParams(window.location.search);
