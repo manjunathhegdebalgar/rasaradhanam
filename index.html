@@ -103,14 +103,18 @@
     }
     .hero-title em { font-style: italic; color: var(--accent); }
     .hero-sub {
-      color: rgba(253,248,240,0.75);
-      font-size: 1rem;
-      max-width: 900px;
-      margin: 0 auto;
-      line-height: 1.7;
-      text-align: justify;
-      white-space: pre-line;
-    }
+        color: rgba(253,248,240,0.75);
+        font-size: 1rem;
+        max-width: 820px;
+        margin: 0 auto;
+        line-height: 1.7;
+        white-space: pre-line;
+        text-align: justify;
+        padding: 0 1.5rem;
+
+        /* justify only on wider screens, center on mobile */
+        text-align: center;
+      }
     .hero-logo {
       max-height: 300px;
       width: auto;
@@ -341,6 +345,11 @@
       .contact-card { padding: 1rem; }
       .social-links { flex-direction: column; }
     }
+    @media (min-width: 601px) {
+  .hero-sub {
+    text-align: justify;
+  }
+}
 
     /* ── CATEGORY FILTER ── */
     .category-filter {
