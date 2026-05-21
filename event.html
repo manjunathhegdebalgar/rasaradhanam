@@ -48,6 +48,9 @@
       font-weight: 600;
       letter-spacing: 0.03em;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
     .nav-back {
       display: flex; align-items: center; gap: 0.4rem;
@@ -78,7 +81,11 @@
       background: var(--bg);
       clip-path: ellipse(55% 100% at 50% 100%);
     }
-    .event-hero-content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+    .event-hero-content {
+      position: relative; z-index: 1;
+      max-width: 780px; margin: 0 auto;
+      padding-bottom: 1rem;
+    }
     .event-category-badge {
       display: inline-block;
       font-size: 0.72rem;
@@ -86,6 +93,8 @@
       text-transform: uppercase;
       border: 1px solid rgba(201,146,42,0.5);
       color: var(--hero-text);
+      padding: 0.25rem 0.85rem;
+      border-radius: 2px;
       font-weight: 500;
       text-shadow: 0 1px 3px rgba(0,0,0,0.25);
       margin-bottom: 0.8rem;
@@ -108,13 +117,13 @@
       display: flex; align-items: center; gap: 0.4rem;
     }
     .event-hero-meta-item span { opacity: 0.7; }
-
     .event-weekday {
-  color: rgba(243,238,227,0.78);
-  font-size: 0.92em;
-  letter-spacing: 0.04em;
-  font-weight: 400;
-}
+      color: rgba(243,238,227,0.78);
+      font-size: 0.92em;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+    }
+
     /* ── MAIN ── */
     main {
       max-width: 880px;
@@ -157,19 +166,59 @@
       line-height: 1.85;
       color: var(--muted);
     }
+
+    /* ── ARTIST CARDS ── */
     .artists-list {
-      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
       list-style: none;
     }
-    .artist-chip {
+    .artist-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(139,26,26,0.04);
+      border: 1px solid rgba(139,26,26,0.12);
+      border-radius: 4px;
+      padding: 0.75rem 1rem 0.75rem 0.75rem;
+      flex: 1;
+      min-width: 220px;
+    }
+    /* Circular photo — auto-cropped via object-fit */
+    .artist-photo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;        /* crops to fill circle */
+      object-position: center top; /* bias toward face */
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      background: rgba(139,26,26,0.08);
+    }
+    /* Placeholder initials when no photo */
+    .artist-photo-placeholder {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      background: rgba(139,26,26,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-heading);
-      font-size: 1rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--primary);
+      letter-spacing: 0.03em;
+    }
+    .artist-name {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
       font-weight: 500;
       color: var(--text);
-      background: rgba(139,26,26,0.06);
-      border: 1px solid rgba(139,26,26,0.15);
-      padding: 0.35rem 0.85rem;
-      border-radius: 2px;
+      line-height: 1.3;
     }
 
     /* ── SIDEBAR ── */
@@ -313,6 +362,7 @@
     }
     @media (max-width: 480px) {
       .event-hero-meta { flex-direction: column; gap: 0.75rem; }
+      .artist-card { min-width: 100%; }
     }
   </style>
 </head>
@@ -320,8 +370,8 @@
 
 <nav>
   <a class="nav-brand" href="index.html" id="nav-brand">
-    <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;display:none;" />
-    <span>Rasārādhanam</span>
+    <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;display:none;" />
+    <span id="nav-brand-text">Rasārādhanam</span>
   </a>
   <a class="nav-back" href="index.html">← All Events</a>
 </nav>
@@ -347,22 +397,22 @@
 (function() {
   // ── Apply config ──
   const cfg = SITE_CONFIG;
-  document.getElementById('nav-brand').textContent = cfg.siteName;
+  document.getElementById('nav-brand-text').textContent = cfg.siteName;
   document.getElementById('footer-name').textContent = cfg.siteName;
   document.getElementById('footer-email').textContent = cfg.contactEmail;
   document.getElementById('footer-email').href = 'mailto:' + cfg.contactEmail;
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   document.getElementById('footer-desc').innerHTML = `
-  A tribute to Śatāvadhāni Dr.R.Ganesh
-  <br/>
-  <span style="opacity:0.8; font-size:0.78rem;">
-    Abhinava Dance Company &nbsp;·&nbsp;
-    Padyapaana &nbsp;·&nbsp;
-    Praharsha Publications &nbsp;·&nbsp;
-    Prekshaa Pratishtana &nbsp;·&nbsp;
-    Ragavalli Fine Arts Foundation
-  </span>`;
-document.getElementById('footer-phone').textContent = cfg.contactPhone;
+    A tribute to Śatāvadhāni Dr.R.Ganesh
+    <br/>
+    <span style="opacity:0.8; font-size:0.78rem;">
+      Abhinava Dance Company &nbsp;·&nbsp;
+      Padyapaana &nbsp;·&nbsp;
+      Praharsha Publications &nbsp;·&nbsp;
+      Prekshaa Pratishtana &nbsp;·&nbsp;
+      Ragavalli Fine Arts Foundation
+    </span>`;
+  document.getElementById('footer-phone').textContent = cfg.contactPhone;
 
   const s = cfg.style;
   const root = document.documentElement;
@@ -377,7 +427,6 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
     const navLogo = document.getElementById('nav-logo');
     if (navLogo) navLogo.style.display = 'inline';
   };
-  logoImg.onerror = function() { /* Logo not found */ };
   logoImg.src = 'logo.png';
 
   // ── Get event ID from URL ──
@@ -410,24 +459,31 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
 
   function isPast(dateStr, timeStr) {
     const [y, mo, d] = dateStr.split('-').map(Number);
-    const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
     const [h, mi] = timeStr.split(':').map(Number);
     return new Date(y, mo-1, d, h, mi) < new Date();
   }
 
+  // ── Normalize artists: support both old string format and new object format ──
+  // This ensures backward compatibility if old events.js is still in use
+  function normalizeArtist(a) {
+    if (typeof a === 'string') return { name: a, photo: '' };
+    return a;
+  }
+
   const [y, mo, d] = ev.date.split('-').map(Number);
-const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
-const past = isPast(ev.date, ev.time);
-const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
+  const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
+  const past = isPast(ev.date, ev.time);
+  const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
 
   // ── Page title ──
   document.title = `${ev.title} — ${cfg.siteName}`;
 
   // ── WhatsApp text ──
   function buildWAText() {
-    let msg = `🎵 *${ev.title}*\n🗓️ ${fullDate} at ${formatTime(ev.time)}\n📍 ${ev.venue.name}, ${ev.venue.address}`;
-    if (ev.artists.length) msg += `\n🎤 ${ev.artists.join(', ')}`;
-    if (ev.registrationEnabled && ev.registrationUrl) msg += `\n\n🔗 Register: ${ev.registrationUrl}`;
+    const artistNames = ev.artists.map(a => normalizeArtist(a).name).join(', ');
+    let msg = `*${ev.title}*\n Date: ${fullDate} (${weekday}) at ${formatTime(ev.time)}\n Venue: ${ev.venue.name}, ${ev.venue.address}`;
+    if (ev.artists.length) msg += `\n Artists: ${artistNames}`;
+    if (ev.registrationEnabled && ev.registrationUrl) msg += `\n\n Register: ${ev.registrationUrl}`;
     return encodeURIComponent(msg);
   }
 
@@ -439,11 +495,10 @@ const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
         <div class="event-category-badge">${ev.category}</div>
         <h1 class="event-hero-title">${ev.title}</h1>
         <div class="event-hero-meta">
-         <div class="event-hero-meta-item">
-  📅
-  <span>${fullDate}</span>
-  <span class="event-weekday">• ${weekday}</span>
-</div>
+          <div class="event-hero-meta-item">
+            📅 <span>${fullDate}</span>
+            <span class="event-weekday">• ${weekday}</span>
+          </div>
           <div class="event-hero-meta-item">🕐 <span>${formatTime(ev.time)}</span></div>
           <div class="event-hero-meta-item">📍 <span>${ev.venue.name}</span></div>
           ${past ? '<div class="event-hero-meta-item" style="color:rgba(201,146,42,0.9);">⏎ Concluded</div>' : ''}
@@ -472,12 +527,32 @@ const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
     ? `<iframe class="event-map" src="${ev.venue.mapEmbedUrl}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map for ${ev.venue.name}"></iframe>`
     : '';
 
-  // ── Artists ──
+  // ── Artists section with photo support ──
+  // Generates initials for placeholder when no photo is provided
+  function getInitials(name) {
+    return name.split(' ')
+      .filter(w => w.length > 0)
+      .slice(0, 2)
+      .map(w => w[0].toUpperCase())
+      .join('');
+  }
+
   const artistsSection = ev.artists.length ? `
     <div class="detail-section">
       <div class="detail-section-title"><span class="icon">🎤</span> Performing Artists</div>
       <ul class="artists-list">
-        ${ev.artists.map(a => `<li class="artist-chip">${a}</li>`).join('')}
+        ${ev.artists.map(a => {
+          const artist = normalizeArtist(a);
+          const photoEl = artist.photo
+            ? `<img class="artist-photo" src="${artist.photo}" alt="${artist.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+               <div class="artist-photo-placeholder" style="display:none;">${getInitials(artist.name)}</div>`
+            : `<div class="artist-photo-placeholder">${getInitials(artist.name)}</div>`;
+          return `
+            <li class="artist-card">
+              ${photoEl}
+              <span class="artist-name">${artist.name}</span>
+            </li>`;
+        }).join('')}
       </ul>
     </div>` : '';
 
@@ -509,12 +584,10 @@ const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
             <div class="info-row-icon">📅</div>
             <div>
               <div class="info-row-label">Date</div>
-             <div class="info-row-value">
-  ${fullDate}
-  <div style="font-size:0.8rem; color:var(--muted); margin-top:0.15rem;">
-    ${weekday}
-  </div>
-</div>
+              <div class="info-row-value">
+                ${fullDate}
+                <div style="font-size:0.8rem; color:var(--muted); margin-top:0.15rem;">${weekday}</div>
+              </div>
             </div>
           </div>
           <div class="info-row">

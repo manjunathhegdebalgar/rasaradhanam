@@ -142,15 +142,12 @@
     }
 
     .hero-logo {
-        max-height: 300px;
-        width: auto;
-        margin: 0 auto 1rem;    /* ← replace margin-bottom:1rem with this */
-        display: block;
-        left: 0;                /* ← add this */
-        right: 0;               /* ← add this */
-        position: relative;     /* ← add this */
-        transform: translateX(-5%);  /* ← fine-tune this value until centered visually */
-      }
+    max-height: 420px;
+    width: auto;
+    margin: 0 auto 1rem;
+    display: block;
+    position: relative;
+}
     .hero-ornament {
       margin: 1.5rem auto 0;
       display: flex; align-items: center; justify-content: center; gap: 0.75rem;
@@ -639,9 +636,9 @@
       .contact-grid { grid-template-columns: 1fr; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
       .section-divider { display: none; }
-        .hero-logo {
-    transform: translateX(-8.5%);
-  }
+<!--        .hero-logo {-->
+<!--    transform: translateX(-6%);-->
+<!--  }-->
     }
 
     @media (max-width: 480px) {
@@ -669,7 +666,7 @@
 
 <nav>
   <a class="nav-brand" href="index.html" id="nav-brand">
-    <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;display:none;" />
+    <img id="nav-logo" src="logo.png" alt="Logo" style="height:40px;display:none;" />
     <span id="nav-brand-text">Rasārādhanam</span>
   </a>
   <ul class="nav-links">
@@ -683,7 +680,7 @@
   <div class="hero-pattern"></div>
   <div class="hero-content">
     <img id="hero-logo" class="hero-logo" src="logo.png" alt="Logo" style="display:none;" />
-    <p class="hero-eyebrow" id="hero-eyebrow">◆ A Tribute to Śatāvadhāni Dr.R.Ganesh ◆</p>
+<!--    <p class="hero-eyebrow" id="hero-eyebrow">◆ A Tribute to Śatāvadhāni Dr.R.Ganesh ◆</p>-->
     <h1 class="hero-title" id="hero-title">Rasārādhanam</h1>
     <p class="hero-sub" id="hero-sub">Rasārādhanam is a series of classical events celebrating the rich tradition of Indian classical arts and erudition</p>
     <!--<div class="hero-ornament">ॐ</div>-->
@@ -754,7 +751,7 @@
             <span>▶️</span> YouTube
           </a>
           <a id="contact-twitter" class="social-link" href="#" target="_blank">
-            <span>𝕏</span> Twitter
+            <span>𝕏</span>
           </a>
         </div>
       </div>
@@ -892,7 +889,7 @@
                 <div class="featured-card-time">${formatTime(ev.time)}</div>
                 <div class="featured-card-venue">${ev.venue.name}</div>
                 <span class="featured-card-category">${ev.category}</span>
-                ${ev.registrationEnabled && ev.registrationUrl ? '<span class="registration-badge" style="margin-top:0.5rem;">Book Now</span>' : ''}
+                ${ev.registrationEnabled && ev.registrationUrl ? '<span class="registration-badge" style="margin-top:0.5rem;">Registration Open</span>' : ''}
               </div>
             </div>
             <div class="featured-card-body">
@@ -942,7 +939,7 @@
     const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
     const hasRegistration = ev.registrationEnabled && ev.registrationUrl && !past;
     const regClass = hasRegistration ? ' registration-open' : '';
-    const regBadge = hasRegistration ? '<span class="registration-badge">Book Now</span>' : '';
+    const regBadge = hasRegistration ? '<span class="registration-badge">Registration Open</span>' : '';
 
     return `
       <a class="event-card${past ? ' past' : ''}${regClass}" href="${detailUrl}" aria-label="View details for ${ev.title}">

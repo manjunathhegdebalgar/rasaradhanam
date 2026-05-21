@@ -4,16 +4,15 @@
 const SITE_CONFIG = {
   "siteName": "Rasārādhanam",
   "tagline": "Tribute to Śatāvadhāni Dr.R.Ganesh",
-  "description": "Rasārādhanam is a series of cultural programmes featuring music concerts, dance recitals, scholarly lectures and panel discussions, organised as a tribute to Śatāvadhānī Dr. R. Ganesh, celebrating the prestigious Padma Bhushan Award conferred on him. Come, be a part of this grand festival of rasa!\n This series of events is presented by Abhinava Dance Company, Padyapaana, Praharsha Publications, Prekshaa Pratishtana and Ragavalli Fine Arts Foundation",
+  "description": "Rasārādhanam is a series of cultural programmes featuring music concerts, dance recitals, scholarly lectures and panel discussions, organised as a tribute to Śatāvadhānī Dr. R. Ganesh, celebrating the prestigious Padma Bhushan Award conferred on him. \nCome, be a part of this grand festival of rasa!\n This series of events named Rasārādhanam is organized by Abhinava Dance Company, Padyapaana, Praharsha Publications, Prekshaa Pratishtana and Ragavalli Fine Arts Foundation",
   "contactEmail": "rasaradhanam@gmail.com",
   "contactPhone": "+917349497814",
   "socialLinks": {
     "instagram": "https://www.instagram.com/rasaradhanam/",
-    "youtube": "https://youtube.com/rasaradhanam/",
     "twitter":"https://x.com/rasaradhanam/"
   },
   "style": {
-    "primaryColor": "#0F1F3Dc4",
+    "primaryColor": "#7f2020",
     "accentColor": "#110e07",
     "backgroundColor": "#FDF8F0",
     "textColor": "#1A1208",
