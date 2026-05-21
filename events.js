@@ -18,7 +18,7 @@ const EVENTS_DATA = [
       "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.624689070577!2d77.5807423637966!3d12.931826674441103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1599c4ca5479%3A0xdaa09fed06a15a7d!2sMangala%20Mantapa!5e0!3m2!1sen!2sin!4v1779358822130!5m2!1sen!2sin"
     },
     "registrationEnabled": true,
-    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfy_xiwoN8GhAMesPFMsgXnPk1w8zZkdq1SVXizLxpwIlwdXA/viewform",
+    "registrationUrl": "https://forms.gle/FbELWRQek8B94AEs8",
     "featured": true,
     "image": ""
   },

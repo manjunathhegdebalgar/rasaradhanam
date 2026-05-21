@@ -109,6 +109,12 @@
     }
     .event-hero-meta-item span { opacity: 0.7; }
 
+    .event-weekday {
+  color: rgba(243,238,227,0.78);
+  font-size: 0.92em;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
     /* ── MAIN ── */
     main {
       max-width: 880px;
@@ -393,6 +399,7 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
   // ── Helpers ──
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const MONTHSFULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
   function formatTime(t) {
     const [h, m] = t.split(':').map(Number);
@@ -403,13 +410,15 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
 
   function isPast(dateStr, timeStr) {
     const [y, mo, d] = dateStr.split('-').map(Number);
+    const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
     const [h, mi] = timeStr.split(':').map(Number);
     return new Date(y, mo-1, d, h, mi) < new Date();
   }
 
   const [y, mo, d] = ev.date.split('-').map(Number);
-  const past = isPast(ev.date, ev.time);
-  const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
+const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
+const past = isPast(ev.date, ev.time);
+const fullDate = `${d} ${MONTHSFULL[mo-1]} ${y}`;
 
   // ── Page title ──
   document.title = `${ev.title} — ${cfg.siteName}`;
@@ -430,7 +439,11 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
         <div class="event-category-badge">${ev.category}</div>
         <h1 class="event-hero-title">${ev.title}</h1>
         <div class="event-hero-meta">
-          <div class="event-hero-meta-item">📅 <span>${fullDate}</span></div>
+         <div class="event-hero-meta-item">
+  📅
+  <span>${fullDate}</span>
+  <span class="event-weekday">• ${weekday}</span>
+</div>
           <div class="event-hero-meta-item">🕐 <span>${formatTime(ev.time)}</span></div>
           <div class="event-hero-meta-item">📍 <span>${ev.venue.name}</span></div>
           ${past ? '<div class="event-hero-meta-item" style="color:rgba(201,146,42,0.9);">⏎ Concluded</div>' : ''}
@@ -496,7 +509,12 @@ document.getElementById('footer-phone').textContent = cfg.contactPhone;
             <div class="info-row-icon">📅</div>
             <div>
               <div class="info-row-label">Date</div>
-              <div class="info-row-value">${fullDate}</div>
+             <div class="info-row-value">
+  ${fullDate}
+  <div style="font-size:0.8rem; color:var(--muted); margin-top:0.15rem;">
+    ${weekday}
+  </div>
+</div>
             </div>
           </div>
           <div class="info-row">

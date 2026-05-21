@@ -269,6 +269,14 @@
   text-transform: uppercase;
   color: rgba(243,238,227,0.9);
 }
+  .card-date-weekday {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(243,238,227,0.78);
+    margin-top: 0.1rem;
+    line-height: 1.1;
+    }
     .card-date-year { font-size: 0.7rem; color: rgba(253,248,240,0.6); }
     .card-time-venue {
       flex: 1; text-align: right;
@@ -481,6 +489,14 @@
   text-transform: uppercase;
   color: rgba(243,238,227,0.9);
 }
+    .featured-card-weekday {
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(243,238,227,0.78);
+      margin-top: 0.1rem;
+      line-height: 1.1;
+    }
     .featured-card-meta { flex: 1; text-align: right; }
     .featured-card-time {
       font-size: 0.85rem;
@@ -498,7 +514,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       background: rgba(201,146,42,0.25);
-      color: var(--accent);
+      color: rgba(243,238,227,0.95);
       padding: 0.15rem 0.5rem;
       border-radius: 2px;
       margin-top: 0.4rem;
@@ -836,6 +852,7 @@
   // ── Helpers ──
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const MONTHSFULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const WEEKDAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   function formatTime(t) {
     const [h, m] = t.split(':').map(Number);
@@ -860,6 +877,7 @@
     sliderEl.innerHTML = featuredEvents.map((ev, i) => {
       const [y, mo, d] = ev.date.split('-').map(Number);
       const detailUrl = `event.html?id=${ev.id}`;
+      const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
       return `
         <div class="featured-slide${i === 0 ? ' active' : ''}" data-index="${i}">
           <div class="featured-card">
@@ -867,6 +885,7 @@
               <div class="featured-card-date">
                 <div class="featured-card-day">${String(d).padStart(2,'0')}</div>
                 <div class="featured-card-month">${MONTHS[mo-1]}</div>
+                <div class="featured-card-weekday">${weekday}</div>
                 <div style="font-size:0.65rem;color:rgba(253,248,240,0.6)">${y}</div>
               </div>
               <div class="featured-card-meta">
@@ -920,6 +939,7 @@
   function buildCard(ev, past) {
     const [y, mo, d] = ev.date.split('-').map(Number);
     const detailUrl = `event.html?id=${ev.id}`;
+    const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
     const hasRegistration = ev.registrationEnabled && ev.registrationUrl && !past;
     const regClass = hasRegistration ? ' registration-open' : '';
     const regBadge = hasRegistration ? '<span class="registration-badge">Book Now</span>' : '';
@@ -931,6 +951,7 @@
             <div class="card-date-day">${String(d).padStart(2,'0')}</div>
             <div class="card-date-month">${MONTHS[mo-1]}</div>
             <div class="card-date-year">${y}</div>
+            <div class="card-date-weekday">${weekday}</div>
           </div>
           <div class="card-time-venue">
             <div class="card-time">${formatTime(ev.time)}</div>
