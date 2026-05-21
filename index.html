@@ -121,25 +121,24 @@
 
     /* hero-sub: mobile-first center, justify on desktop */
     .hero-sub {
-          color: rgba(253,248,240,0.75);
-          font-size: 0.88rem;
-          width: 100%;
-          margin: 0 auto;
-          line-height: 1.7;
-          white-space: pre-line;
-          text-align: center;
-          padding: 0;
-          word-break: break-word;
-          overflow-wrap: break-word;
-          hyphens: auto;
-        }
-
+        color: rgba(253,248,240,0.75);
+        font-size: 0.88rem;
+        max-width: 820px;
+        margin: 0 auto;
+        line-height: 1.7;
+        white-space: pre-line;
+        text-align: justify;
+        padding: 0 1.5rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+}
+/* 
         @media (min-width: 601px) {
       .hero-sub {
         font-size: 1rem;
         text-align: justify;
       }
-    }
+    } */
 
     .hero-logo {
     max-height: 420px;
@@ -351,7 +350,9 @@
       padding: 2.5rem 1.5rem;
       font-size: 0.82rem;
       line-height: 2;
-    }
+      word-break: break-word;      /* ← add this */
+      overflow-wrap: break-word;   /* ← add this */
+}
     footer strong { color: #FDF8F0; font-weight: 500; }
     footer a { color: var(--accent); text-decoration: none; }
 
@@ -693,8 +694,8 @@
   <section id="upcoming" style="scroll-margin-top: 70px;">
     <div class="section-header">
       <div>
-        <span class="section-tag">Upcoming</span>
-        <h2 class="section-title">Forthcoming Events</h2>
+        <span class="section-tag">Upcoming Events</span>
+        <h2 class="section-title" style="display:none;">Forthcoming Events</h2>
       </div>
       <div class="section-divider"></div>
     </div>
@@ -753,7 +754,10 @@
           <a id="contact-twitter" class="social-link" href="#" target="_blank">
             <span>𝕏</span>
           </a>
-        </div>
+          <a id="contact-facebook" class="social-link" href="#" target="_blank">
+        <span>𝐟</span> Facebook
+      </a>
+              </div>
       </div>
     </div>
   </section>
@@ -787,16 +791,16 @@
 
   document.getElementById('footer-name').textContent = cfg.siteName;
   document.getElementById('footer-desc').innerHTML = `
-    A tribute to Śatāvadhāni Dr.R.Ganesh
-    <br/>
-    <span style="opacity:0.8; font-size:0.78rem;">
-      Abhinava Dance Company &nbsp;·&nbsp;
-      Padyapaana &nbsp;·&nbsp;
-      Praharsha Publications &nbsp;·&nbsp;
-      Prekshaa Pratishtana &nbsp;·&nbsp;
-      Ragavalli Fine Arts Foundation
-    </span>
-  `;
+  A tribute to Śatāvadhāni Dr.R.Ganesh
+  <br/>
+  <span style="opacity:0.8; font-size:0.78rem; display:block; padding: 0 1rem;">
+    Abhinava Dance Company · 
+    Padyapaana · 
+    Praharsha Publications · 
+    Prekshaa Pratishtana · 
+    Ragavalli Fine Arts Foundation
+  </span>
+`;
   document.getElementById('footer-email').textContent = cfg.contactEmail;
   document.getElementById('footer-email').href = 'mailto:' + cfg.contactEmail;
   document.getElementById('footer-phone').textContent = cfg.contactPhone;
@@ -845,6 +849,11 @@
   } else {
     document.getElementById('contact-twitter').style.display = 'none';
   }
+  if (cfg.socialLinks && cfg.socialLinks.facebook) {
+  document.getElementById('contact-facebook').href = cfg.socialLinks.facebook;
+} else {
+  document.getElementById('contact-facebook').style.display = 'none';
+}
 
   // ── Helpers ──
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

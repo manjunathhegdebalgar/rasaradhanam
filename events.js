@@ -7,11 +7,11 @@ const EVENTS_DATA = [
     "title": "Bharatanrityam by Dr. Padma Subrahmanyam",
     "date": "2026-06-06",
     "time": "16:30",
-    "category": "Bharatanāṭyaṃ",
+    "category": "Bharatanrityam",
     "artists": [
       { "name": "Dr. Padma Subrahmanyam", "photo": "artists/padma-subrahmanyam.jpg" }
     ],
-    "description": "Dr. Padma Subrahmanyam commences  Rasārādhanam series with her Bharatanrityam recital.",
+    "description": "Dr. Padma Subrahmanyam inaugurates Rasārādhanam series with her Bharatanrityam recital.",
     "venue": {
       "name": "Mangala Mantapa (Venue supported by Rashtriya Shikshana Samithi Trust)",
       "address": "NMKRV College, Jayanagar 3rd Block, Bengaluru",
@@ -32,9 +32,9 @@ const EVENTS_DATA = [
       "Dr. Nagavalli Nagaraj",
       "Dr. Ranjani Vasuki and their students"
     ],
-    "description": "Witness an enchanting evening of classical music featuring the compositions of Padma Bhushan Shatavadhani Dr. R. Ganesh.",
+    "description": "Enjoy an enchanting evening of classical music featuring the compositions of Padma Bhushan Shatavadhani Dr. R. Ganesh.",
     "venue": {
-      "name": "Patthi Sabhangana",
+      "name": "NR Colony Sri Ramamandiram - Patthi Sabhangana",
       "address": "1st Main Road, N. R. Colony, Bengaluru",
       "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.537289723725!2d77.56668547411968!3d12.937433815628392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15baa92727bb%3A0xeb0e41449514b085!2sPatthi%20Sabhangana!5e0!3m2!1sen!2sin!4v1779358076306!5m2!1sen!2sin"
     },
@@ -48,13 +48,13 @@ const EVENTS_DATA = [
     "title": "Ekavyakti Talamaddale",
     "date": "2026-07-25",
     "time": "17:30",
-    "category": "Tāl̤amaddal̤ĕ",
+    "category": "Talamaddale",
     "artists": [
       "Sri Diwakar Hegde and group"
     ],
-    "description": "Witness the unique art of Ekavyakti Talamaddale bring to life characters from the great epics.",
+    "description": "Enjoy the unique art of Ekavyakti Talamaddale bring to life characters from the great epics.",
     "venue": {
-      "name": "Patthi Sabhangana",
+      "name": "NR Colony Sri Ramamandiram - Patthi Sabhangana",
       "address": "1st Main Road, N. R. Colony, Bengaluru",
       "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.537289723725!2d77.56668547411968!3d12.937433815628392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15baa92727bb%3A0xeb0e41449514b085!2sPatthi%20Sabhangana!5e0!3m2!1sen!2sin!4v1779358076306!5m2!1sen!2sin"
     },

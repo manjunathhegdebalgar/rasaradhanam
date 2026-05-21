@@ -351,7 +351,9 @@
       padding: 2.5rem 1.5rem;
       font-size: 0.82rem;
       line-height: 2;
-    }
+      word-break: break-word;      /* ← add this */
+      overflow-wrap: break-word;   /* ← add this */
+}
     footer strong { color: #FDF8F0; font-weight: 500; }
     footer a { color: var(--accent); text-decoration: none; }
 
@@ -403,15 +405,16 @@
   document.getElementById('footer-email').href = 'mailto:' + cfg.contactEmail;
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   document.getElementById('footer-desc').innerHTML = `
-    A tribute to Śatāvadhāni Dr.R.Ganesh
-    <br/>
-    <span style="opacity:0.8; font-size:0.78rem;">
-      Abhinava Dance Company &nbsp;·&nbsp;
-      Padyapaana &nbsp;·&nbsp;
-      Praharsha Publications &nbsp;·&nbsp;
-      Prekshaa Pratishtana &nbsp;·&nbsp;
-      Ragavalli Fine Arts Foundation
-    </span>`;
+  A tribute to Śatāvadhāni Dr.R.Ganesh
+  <br/>
+  <span style="opacity:0.8; font-size:0.78rem; display:block; padding: 0 1rem;">
+    Abhinava Dance Company · 
+    Padyapaana · 
+    Praharsha Publications · 
+    Prekshaa Pratishtana · 
+    Ragavalli Fine Arts Foundation
+  </span>
+`;
   document.getElementById('footer-phone').textContent = cfg.contactPhone;
 
   const s = cfg.style;
