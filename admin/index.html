@@ -793,7 +793,7 @@ function eventFormHTML(ev) {
   const isEdit = !!ev;
   const v = ev || { id:'', title:'', description:'', date:'', time:'09:00', category:'Carnatic Vocal', artists:[], venue:{ name:'', address:'', mapEmbedUrl:'' }, registrationEnabled:false, registrationUrl:'', image:'', featured:false };
   const artistsStr = Array.isArray(v.artists) ? v.artists.join(', ') : v.artists;
-  const categories = ['Avadhāna​','Carnatic Music','Hindustani Music','Vidvadgoṣṭhi','Bharatanāṭyaṃ','Kathak',, 'Tāl̤amaddal̤ĕ', 'Other'];
+  const categories = ['Avadhāna​','Classical Music','Carnatic Music','Hindustani Music','Vidvadgoṣṭhi','Bharatanāṭyaṃ','Kathak',, 'Tāl̤amaddal̤ĕ', 'Other'];
   const catOptions = categories.map(c => `<option value="${c}" ${v.category===c?'selected':''}>${c}</option>`).join('');
 
   return `

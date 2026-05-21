@@ -3,23 +3,64 @@
 // =============================================================
 const EVENTS_DATA = [
   {
-    "id": "evt1778309893730",
+    "id": "evt1779358848914",
     "title": "Bharatanrityam by Dr. Padma Subrahmanyam",
     "date": "2026-06-06",
-    "time": "09:00",
+    "time": "16:30",
     "category": "Bharatanāṭyaṃ",
     "artists": [
-      "Dr. Padma Subrahmanyam and team"
+      "Dr. Padma Subrahmanyam"
     ],
-    "description": "Experience the timeless grace of Bharatanatyam through Padma Subrahmanyam’s masterful choreography, blending tradition, storytelling, and exquisite rhythm.",
+    "description": "Witness Padma Vibhushan Dr. Padma Subrahmanyam commencing  Rasārādhanam series with her masterful Bharatanrityam.",
     "venue": {
       "name": "Mangala Mantapa",
-      "address": "WHJJ+PVM, Byrasandra, Jayanagar 3rd Block, Jayanagar, Bengaluru, Karnataka 560011",
-      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.6244440060195!2d77.5821586!3d12.931842399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1599c4ca5479%3A0xdaa09fed06a15a7d!2sMangala%20Mantapa!5e0!3m2!1sen!2sin!4v1778309658207!5m2!1sen!2sin"
+      "address": "Jayanagar 3rd Block, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.624689070577!2d77.5807423637966!3d12.931826674441103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1599c4ca5479%3A0xdaa09fed06a15a7d!2sMangala%20Mantapa!5e0!3m2!1sen!2sin!4v1779358822130!5m2!1sen!2sin"
     },
     "registrationEnabled": true,
-    "registrationUrl": "https://www.netlify.com/pricing/",
+    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfy_xiwoN8GhAMesPFMsgXnPk1w8zZkdq1SVXizLxpwIlwdXA/viewform",
     "featured": true,
+    "image": ""
+  },
+  {
+    "id": "evt1779359019603",
+    "title": "Classical Music Concert",
+    "date": "2026-07-04",
+    "time": "17:00",
+    "category": "Carnatic Music",
+    "artists": [
+      "Dr. Nagavalli Nagaraj",
+      "Dr. Ranjani Vasuki and their students"
+    ],
+    "description": "Witness an enchanting evening of classical music featuring the compositions of Padma Bhushan Shatavadhani Dr. R. Ganesh.",
+    "venue": {
+      "name": "Patthi Sabhangana",
+      "address": "1st Main Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.537289723725!2d77.56668547411968!3d12.937433815628392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15baa92727bb%3A0xeb0e41449514b085!2sPatthi%20Sabhangana!5e0!3m2!1sen!2sin!4v1779358076306!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779359209244",
+    "title": "Ekavyakti Talamaddale",
+    "date": "2026-07-25",
+    "time": "17:30",
+    "category": "Tāl̤amaddal̤ĕ",
+    "artists": [
+      "Sri Diwakar Hegde and group"
+    ],
+    "description": "Witness the unique art of Ekavyakti Talamaddale bring to life characters from the great epics.",
+    "venue": {
+      "name": "Patthi Sabhangana",
+      "address": "1st Main Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.537289723725!2d77.56668547411968!3d12.937433815628392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15baa92727bb%3A0xeb0e41449514b085!2sPatthi%20Sabhangana!5e0!3m2!1sen!2sin!4v1779358076306!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
     "image": ""
   }
 ];

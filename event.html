@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event Details — Rasārādhanaṃ</title>
+  <title>Event Details — Rasārādhanam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -20,6 +20,7 @@
       --card-bg: #FFFDF7;
       --font-heading: 'Cormorant Garamond', serif;
       --font-body: 'Lora', serif;
+      --hero-text: #E0C27A;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,14 +81,14 @@
     .event-hero-content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
     .event-category-badge {
       display: inline-block;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
       border: 1px solid rgba(201,146,42,0.5);
-      padding: 0.25rem 0.85rem;
-      border-radius: 2px;
-      margin-bottom: 1.1rem;
+      color: var(--hero-text);
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      margin-bottom: 0.8rem;
     }
     .event-hero-title {
       font-family: var(--font-heading);
@@ -314,7 +315,7 @@
 <nav>
   <a class="nav-brand" href="index.html" id="nav-brand">
     <img id="nav-logo" src="logo.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;display:none;" />
-    <span>Rasārādhanaṃ</span>
+    <span>Rasārādhanam</span>
   </a>
   <a class="nav-back" href="index.html">← All Events</a>
 </nav>
@@ -327,13 +328,13 @@
 </main>
 
 <footer>
-  <p><strong id="footer-name">Rasārādhanaṃ</strong></p>
+  <p><strong id="footer-name">Rasārādhanam</strong></p>
   <p id="footer-desc">A tribute to Śatāvadhāni Dr.R.Ganesh</p>
   <p>
     <a id="footer-email" href="#">rasaradhanam@gmail.com</a> &nbsp;·&nbsp;
     <span id="footer-phone">+91 7349497814</span>
   </p>
-  <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.5;">© <span id="footer-year"></span> Rasārādhanaṃ. All rights reserved.</p>
+  <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.5;">© <span id="footer-year"></span> Rasārādhanam. All rights reserved.</p>
 </footer>
 
 <script>
