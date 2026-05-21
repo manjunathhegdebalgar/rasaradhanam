@@ -3,16 +3,17 @@
 // =============================================================
 const SITE_CONFIG = {
   "siteName": "Rasārādhanaṃ",
-  "tagline": "A Celebration of Indian Classical Arts, Culture and Erudition",
-  "description": "Rasārādhanaṃ is a curated series of music, dance, discourse, and cultural gatherings celebrating the depth and continuity of Indian classical traditions.",
+  "tagline": "Tribute to Śatāvadhāni Dr.R.Ganesh",
+  "description": "Rasārādhanam is a series of cultural programmes featuring music concerts, dance recitals, scholarly lectures and panel discussions, organised as a tribute to Śatāvadhānī Dr. R. Ganesh, celebrating the prestigious Padma Bhushan Award conferred on him. Come, be a part of this grand festival of rasa!\n This series of events is being presented by Abhinava Dance Company, Padyapaana, Praharsha Publications, Prekshaa Pratishtana and Ragavalli Fine Arts Foundation",
   "contactEmail": "rasaradhanam@gmail.com",
   "contactPhone": "+917349497814",
   "socialLinks": {
-    "instagram": "https://instagram.com/sangamutsav",
-    "youtube": "https://youtube.com/@sangamutsav"
+    "instagram": "https://www.instagram.com/rasaradhanam/",
+    "youtube": "https://youtube.com/rasaradhanam/",
+    "twitter":"https://x.com/rasaradhanam/"
   },
   "style": {
-    "primaryColor": "#05866ac4",
+    "primaryColor": "#0F1F3Dc4",
     "accentColor": "#110e07",
     "backgroundColor": "#FDF8F0",
     "textColor": "#1A1208",
