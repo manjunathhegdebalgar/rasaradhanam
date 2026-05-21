@@ -328,7 +328,11 @@
 
 <footer>
   <p><strong id="footer-name">Rasārādhanaṃ</strong></p>
-  <p><a id="footer-email" href="#">rasaradhanam@gmail.com</a></p>
+  <p id="footer-desc">A tribute to Śatāvadhāni Dr.R.Ganesh</p>
+  <p>
+    <a id="footer-email" href="#">rasaradhanam@gmail.com</a> &nbsp;·&nbsp;
+    <span id="footer-phone">+91 7349497814</span>
+  </p>
   <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.5;">© <span id="footer-year"></span> Rasārādhanaṃ. All rights reserved.</p>
 </footer>
 
@@ -341,6 +345,17 @@
   document.getElementById('footer-email').textContent = cfg.contactEmail;
   document.getElementById('footer-email').href = 'mailto:' + cfg.contactEmail;
   document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.getElementById('footer-desc').innerHTML = `
+  A tribute to Śatāvadhāni Dr.R.Ganesh
+  <br/>
+  <span style="opacity:0.8; font-size:0.78rem;">
+    Abhinava Dance Company &nbsp;·&nbsp;
+    Padyapaana &nbsp;·&nbsp;
+    Praharsha Publications &nbsp;·&nbsp;
+    Prekshaa Pratishtana &nbsp;·&nbsp;
+    Ragavalli Fine Arts Foundation
+  </span>`;
+document.getElementById('footer-phone').textContent = cfg.contactPhone;
 
   const s = cfg.style;
   const root = document.documentElement;
@@ -400,7 +415,7 @@
 
   // ── WhatsApp text ──
   function buildWAText() {
-    let msg = `🎵 *${ev.title}*\n📅 ${fullDate} at ${formatTime(ev.time)}\n📍 ${ev.venue.name}, ${ev.venue.address}`;
+    let msg = `🎵 *${ev.title}*\n🗓️ ${fullDate} at ${formatTime(ev.time)}\n📍 ${ev.venue.name}, ${ev.venue.address}`;
     if (ev.artists.length) msg += `\n🎤 ${ev.artists.join(', ')}`;
     if (ev.registrationEnabled && ev.registrationUrl) msg += `\n\n🔗 Register: ${ev.registrationUrl}`;
     return encodeURIComponent(msg);

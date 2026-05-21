@@ -105,9 +105,11 @@
     .hero-sub {
       color: rgba(253,248,240,0.75);
       font-size: 1rem;
-      max-width: 500px;
+      max-width: 900px;
       margin: 0 auto;
       line-height: 1.7;
+      text-align: justify;
+      white-space: pre-line;
     }
     .hero-logo {
       max-height: 300px;
@@ -722,6 +724,9 @@
           <a id="contact-youtube" class="social-link" href="#" target="_blank">
             <span>▶️</span> YouTube
           </a>
+          <a id="contact-twitter" class="social-link" href="#" target="_blank">
+            <span>𝕏</span>
+          </a>
         </div>
       </div>
     </div>
@@ -750,7 +755,17 @@
   cfg.siteName.replace(/^(\S+)\s+(\S+)$/, '$1 <em>$2</em>');
   document.getElementById('hero-sub').textContent = cfg.description;
   document.getElementById('footer-name').textContent = cfg.siteName;
-  document.getElementById('footer-desc').textContent = cfg.description;
+  document.getElementById('footer-desc').innerHTML = `
+  A tribute to Śatāvadhāni Dr.R.Ganesh
+  <br/>
+  <span style="opacity:0.8; font-size:0.78rem;">
+    Abhinava Dance Company &nbsp;·&nbsp;
+    Padyapaana &nbsp;·&nbsp;
+    Praharsha Publications &nbsp;·&nbsp;
+    Prekshaa Pratishtana &nbsp;·&nbsp;
+    Ragavalli Fine Arts Foundation
+  </span>
+`;
   document.getElementById('footer-email').textContent = cfg.contactEmail;
   document.getElementById('footer-email').href = 'mailto:' + cfg.contactEmail;
   document.getElementById('footer-phone').textContent = cfg.contactPhone;
@@ -795,6 +810,11 @@
     document.getElementById('contact-youtube').href = cfg.socialLinks.youtube;
   } else {
     document.getElementById('contact-youtube').style.display = 'none';
+  }
+  if (cfg.socialLinks && cfg.socialLinks.twitter) {
+  document.getElementById('contact-twitter').href = cfg.socialLinks.twitter;
+  } else {
+  document.getElementById('contact-twitter').style.display = 'none';
   }
 
   // Featured popup code will be added after helpers
