@@ -109,12 +109,17 @@
         margin: 0 auto;
         line-height: 1.7;
         white-space: pre-line;
-        text-align: justify;
-        padding: 0 1.5rem;
-
-        /* justify only on wider screens, center on mobile */
         text-align: center;
-      }
+        padding: 0 2rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    @media (min-width: 601px) {
+  .hero-sub {
+    text-align: justify;
+    padding: 0 1.5rem;
+  }
+}
     .hero-logo {
       max-height: 300px;
       width: auto;
@@ -345,11 +350,7 @@
       .contact-card { padding: 1rem; }
       .social-links { flex-direction: column; }
     }
-    @media (min-width: 601px) {
-  .hero-sub {
-    text-align: justify;
-  }
-}
+
 
     /* ── CATEGORY FILTER ── */
     .category-filter {
