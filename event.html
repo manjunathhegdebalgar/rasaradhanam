@@ -185,18 +185,16 @@
       flex: 1;
       min-width: 220px;
     }
-    /* Circular photo — auto-cropped via object-fit */
     .artist-photo {
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      object-fit: cover;        /* crops to fill circle */
-      object-position: center top; /* bias toward face */
+      object-fit: cover;
+      object-position: center top;
       flex-shrink: 0;
       border: 2px solid var(--border);
       background: rgba(139,26,26,0.08);
     }
-    /* Placeholder initials when no photo */
     .artist-photo-placeholder {
       width: 64px;
       height: 64px;
@@ -304,6 +302,44 @@
     }
     .btn-register-full:hover { background: #a87520; }
 
+    /* ── BOOKING CLOSED CARD ── */
+    .booking-closed-card-text {
+  font-size: 0.85rem;
+  color: var(--primary);
+  line-height: 1.65;
+  font-weight: 500;
+  text-align: justify;   
+}
+    .booking-closed-card-header {
+      background: var(--primary);
+      padding: 0.65rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      color: #FDF8F0;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+    .booking-closed-card-body {
+      padding: 1rem 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+    .booking-closed-card-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .booking-closed-card-text {
+      font-size: 0.85rem;
+      color: var(--primary);
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
     /* ── WHATSAPP ── */
     .btn-whatsapp-full {
       display: flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -351,9 +387,9 @@
       padding: 2.5rem 1.5rem;
       font-size: 0.82rem;
       line-height: 2;
-      word-break: break-word;      /* ← add this */
-      overflow-wrap: break-word;   /* ← add this */
-}
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
     footer strong { color: #FDF8F0; font-weight: 500; }
     footer a { color: var(--accent); text-decoration: none; }
 
@@ -466,8 +502,7 @@
     return new Date(y, mo-1, d, h, mi) < new Date();
   }
 
-  // ── Normalize artists: support both old string format and new object format ──
-  // This ensures backward compatibility if old events.js is still in use
+  // ── Normalize artists ──
   function normalizeArtist(a) {
     if (typeof a === 'string') return { name: a, photo: '' };
     return a;
@@ -486,7 +521,7 @@
     const artistNames = ev.artists.map(a => normalizeArtist(a).name).join(', ');
     let msg = `*${ev.title}*\n Date: ${fullDate} (${weekday}) at ${formatTime(ev.time)}\n Venue: ${ev.venue.name}, ${ev.venue.address}`;
     if (ev.artists.length) msg += `\n Artists: ${artistNames}`;
-    if (ev.registrationEnabled && ev.registrationUrl) msg += `\n\n Register: ${ev.registrationUrl}`;
+    if (ev.registrationEnabled && ev.registrationUrl && !ev.bookingClosed) msg += `\n\n Register: ${ev.registrationUrl}`;
     return encodeURIComponent(msg);
   }
 
@@ -510,12 +545,35 @@
       <div class="event-hero-divider"></div>
     </header>`;
 
-  // ── Registration / WhatsApp sidebar actions ──
-  const regSection = (ev.registrationEnabled && ev.registrationUrl && !past) ? `
-    <div class="register-card">
-      <p>Seats are limited. Secure your place for this event.</p>
-      <a class="btn-register-full" href="${ev.registrationUrl}" target="_blank" rel="noopener">Register / Book Tickets →</a>
-    </div>` : '';
+  // ── Sidebar: registration / booking-closed / concluded ──
+  let regSection = '';
+
+  if (past) {
+    // Event is over — concluded banner handles it, no reg section needed
+  } else if (ev.registrationEnabled && ev.registrationUrl) {
+    if (ev.bookingClosed) {
+      // Bookings were open but are now closed
+      const msg = ev.bookingClosedMessage
+        || 'Registrations are now closed. Seat allocations will be communicated to your registered WhatsApp numbers shortly.';
+      regSection = `
+        <div class="booking-closed-card">
+          <div class="booking-closed-card-header">
+            <span>🔒</span> Registrations Closed
+          </div>
+          <div class="booking-closed-card-body">
+            <div class="booking-closed-card-icon">🔔</div>
+            <div class="booking-closed-card-text">${msg}</div>
+          </div>
+        </div>`;
+    } else {
+      // Bookings are open
+      regSection = `
+        <div class="register-card">
+          <p>Seats are limited. Secure your place for this event.</p>
+          <a class="btn-register-full" href="${ev.registrationUrl}" target="_blank" rel="noopener">Register / Book Tickets →</a>
+        </div>`;
+    }
+  }
 
   const concludedBanner = past ? `<div class="concluded-banner">This event has concluded.</div>` : '';
 
@@ -530,8 +588,7 @@
     ? `<iframe class="event-map" src="${ev.venue.mapEmbedUrl}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map for ${ev.venue.name}"></iframe>`
     : '';
 
-  // ── Artists section with photo support ──
-  // Generates initials for placeholder when no photo is provided
+  // ── Artists ──
   function getInitials(name) {
     return name.split(' ')
       .filter(w => w.length > 0)
