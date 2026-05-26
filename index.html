@@ -132,13 +132,6 @@
         word-break: break-word;
         overflow-wrap: break-word;
 }
-/* 
-        @media (min-width: 601px) {
-      .hero-sub {
-        font-size: 1rem;
-        text-align: justify;
-      }
-    } */
 
     .hero-logo {
     max-height: 420px;
@@ -350,8 +343,8 @@
       padding: 2.5rem 1.5rem;
       font-size: 0.82rem;
       line-height: 2;
-      word-break: break-word;      /* ← add this */
-      overflow-wrap: break-word;   /* ← add this */
+      word-break: break-word;
+      overflow-wrap: break-word;
 }
     footer strong { color: #FDF8F0; font-weight: 500; }
     footer a { color: var(--accent); text-decoration: none; }
@@ -533,6 +526,11 @@
     }
     .featured-card-footer {
       display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .featured-card-footer-row {
+      display: flex;
       justify-content: space-between;
       align-items: center;
     }
@@ -543,6 +541,41 @@
       font-weight: 500;
     }
     .featured-card-link:hover { color: var(--accent); }
+
+    /* ── BOOKING CLOSED BANNER ── */
+    .booking-closed-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      background: rgba(139,26,26,0.08);
+      border: 1.5px solid rgba(139,26,26,0.3);
+      border-radius: 3px;
+      padding: 0.8rem 1rem;
+      margin-top: 0.25rem;
+    }
+    .booking-closed-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .booking-closed-text {
+      font-size: 0.82rem;
+      color: var(--primary);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .booking-closed-badge {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: #FDF8F0;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
 
     .featured-nav {
       display: flex;
@@ -637,9 +670,6 @@
       .contact-grid { grid-template-columns: 1fr; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
       .section-divider { display: none; }
-<!--        .hero-logo {-->
-<!--    transform: translateX(-6%);-->
-<!--  }-->
     }
 
     @media (max-width: 480px) {
@@ -681,10 +711,8 @@
   <div class="hero-pattern"></div>
   <div class="hero-content">
     <img id="hero-logo" class="hero-logo" src="logo.png" alt="Logo" style="display:none;" />
-<!--    <p class="hero-eyebrow" id="hero-eyebrow">◆ A Tribute to Śatāvadhāni Dr.R.Ganesh ◆</p>-->
     <h1 class="hero-title" id="hero-title">Rasārādhanam</h1>
     <p class="hero-sub" id="hero-sub">Rasārādhanam is a series of classical events celebrating the rich tradition of Indian classical arts and erudition</p>
-    <!--<div class="hero-ornament">ॐ</div>-->
   </div>
   <div class="hero-divider"></div>
 </header>
@@ -781,8 +809,6 @@
   const cfg = SITE_CONFIG;
   document.title = cfg.siteName;
 
-  // Fix: target the span inside nav-brand, not the anchor itself
-  // (avoids wiping out the logo <img> sibling)
   document.getElementById('nav-brand-text').textContent = cfg.siteName;
 
   document.getElementById('hero-title').innerHTML =
@@ -850,10 +876,10 @@
     document.getElementById('contact-twitter').style.display = 'none';
   }
   if (cfg.socialLinks && cfg.socialLinks.facebook) {
-  document.getElementById('contact-facebook').href = cfg.socialLinks.facebook;
-} else {
-  document.getElementById('contact-facebook').style.display = 'none';
-}
+    document.getElementById('contact-facebook').href = cfg.socialLinks.facebook;
+  } else {
+    document.getElementById('contact-facebook').style.display = 'none';
+  }
 
   // ── Helpers ──
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -884,6 +910,36 @@
       const [y, mo, d] = ev.date.split('-').map(Number);
       const detailUrl = `event.html?id=${ev.id}`;
       const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
+
+      // Determine registration/booking-closed state
+      const hasRegistration = ev.registrationEnabled && ev.registrationUrl;
+      const isClosed = ev.bookingClosed;
+
+      // Badge shown in card header (top-right area)
+      let headerBadge = '';
+      if (hasRegistration) {
+        if (isClosed) {
+          headerBadge = '<span class="booking-closed-badge" style="margin-top:0.5rem;">Bookings Closed</span>';
+        } else {
+          headerBadge = '<span class="registration-badge" style="margin-top:0.5rem;">Registration Open</span>';
+        }
+      }
+
+      // Footer action: Register link OR booking-closed banner
+      let footerAction = '';
+      if (hasRegistration && !isClosed) {
+        footerAction = `<a href="${ev.registrationUrl}" target="_blank" class="featured-card-link" style="color:var(--accent);">Register Now →</a>`;
+      }
+
+      let closedBanner = '';
+      if (isClosed && ev.bookingClosedMessage) {
+        closedBanner = `
+          <div class="booking-closed-banner">
+            <div class="booking-closed-icon">🔔</div>
+            <div class="booking-closed-text">${ev.bookingClosedMessage}</div>
+          </div>`;
+      }
+
       return `
         <div class="featured-slide${i === 0 ? ' active' : ''}" data-index="${i}">
           <div class="featured-card">
@@ -898,15 +954,18 @@
                 <div class="featured-card-time">${formatTime(ev.time)}</div>
                 <div class="featured-card-venue">${ev.venue.name}</div>
                 <span class="featured-card-category">${ev.category}</span>
-                ${ev.registrationEnabled && ev.registrationUrl ? '<span class="registration-badge" style="margin-top:0.5rem;">Registration Open</span>' : ''}
+                ${headerBadge}
               </div>
             </div>
             <div class="featured-card-body">
               <h3 class="featured-card-title">${ev.title}</h3>
               <p class="featured-card-desc">${ev.description ? (ev.description.substring(0, 150) + (ev.description.length > 150 ? '...' : '')) : 'More details coming soon.'}</p>
               <div class="featured-card-footer">
-                <a href="${detailUrl}" class="featured-card-link">View Details →</a>
-                ${ev.registrationEnabled && ev.registrationUrl ? '<a href="' + ev.registrationUrl + '" target="_blank" class="featured-card-link" style="color:var(--accent);">Register Now →</a>' : ''}
+                <div class="featured-card-footer-row">
+                  <a href="${detailUrl}" class="featured-card-link">View Details →</a>
+                  ${footerAction}
+                </div>
+                ${closedBanner}
               </div>
             </div>
           </div>
@@ -947,8 +1006,12 @@
     const detailUrl = `event.html?id=${ev.id}`;
     const weekday = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
     const hasRegistration = ev.registrationEnabled && ev.registrationUrl && !past;
-    const regClass = hasRegistration ? ' registration-open' : '';
-    const regBadge = hasRegistration ? '<span class="registration-badge">Registration Open</span>' : '';
+    const regClass = hasRegistration && !ev.bookingClosed ? ' registration-open' : '';
+    const regBadge = hasRegistration
+      ? (ev.bookingClosed
+          ? '<span class="booking-closed-badge" style="margin-top:0.3rem;">Bookings Closed</span>'
+          : '<span class="registration-badge">Registration Open</span>')
+      : '';
 
     return `
       <a class="event-card${past ? ' past' : ''}${regClass}" href="${detailUrl}" aria-label="View details for ${ev.title}">
@@ -973,7 +1036,7 @@
         <div class="card-footer">
           ${past
             ? '<span class="past-badge">Concluded</span>'
-            : (hasRegistration
+            : (hasRegistration && !ev.bookingClosed
                 ? '<span class="view-details-hint" style="color:var(--accent);">Register →</span>'
                 : '<span class="view-details-hint">View Details →</span>')}
         </div>

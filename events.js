@@ -19,6 +19,8 @@ const EVENTS_DATA = [
     },
     "registrationEnabled": true,
     "registrationUrl": "https://forms.gle/FbELWRQek8B94AEs8",
+    "bookingClosed": true,
+    "bookingClosedMessage": "Registrations are now closed. Seat allocations will be communicated to your registered WhatsApp numbers shortly.",
     "featured": true,
     "image": ""
   },
@@ -40,6 +42,8 @@ const EVENTS_DATA = [
     },
     "registrationEnabled": false,
     "registrationUrl": "",
+    "bookingClosed": false,
+    "bookingClosedMessage": "",
     "featured": false,
     "image": ""
   },
@@ -60,6 +64,8 @@ const EVENTS_DATA = [
     },
     "registrationEnabled": false,
     "registrationUrl": "",
+    "bookingClosed": false,
+    "bookingClosedMessage": "",
     "featured": false,
     "image": ""
   }
