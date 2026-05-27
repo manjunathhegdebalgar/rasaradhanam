@@ -9,7 +9,10 @@ const EVENTS_DATA = [
     "time": "16:30",
     "category": "Bharatanrityam",
     "artists": [
-      { "name": "Dr. Padma Subrahmanyam", "photo": "artists/padma-subrahmanyam.jpg" }
+      {
+        "name": "Dr. Padma Subrahmanyam",
+        "photo": "artists/padma-subrahmanyam.jpg"
+      }
     ],
     "description": "Dr. Padma Subrahmanyam inaugurates Rasārādhanam series with her Bharatanrityam recital.",
     "venue": {
@@ -26,7 +29,7 @@ const EVENTS_DATA = [
   },
   {
     "id": "evt1779359019603",
-    "title": "Classical Music Concert",
+    "title": "Classical Music Concert by Dr. Nagavalli Nagaraj, Dr. Ranjani Vasuki and their students",
     "date": "2026-07-04",
     "time": "17:00",
     "category": "Carnatic Music",
@@ -49,7 +52,7 @@ const EVENTS_DATA = [
   },
   {
     "id": "evt1779359209244",
-    "title": "Ekavyakti Talamaddale",
+    "title": "Ekavyakti Talamaddale by Sri Diwakar Hegde and group",
     "date": "2026-07-25",
     "time": "17:30",
     "category": "Talamaddale",
@@ -66,6 +69,320 @@ const EVENTS_DATA = [
     "registrationUrl": "",
     "bookingClosed": false,
     "bookingClosedMessage": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779855747508",
+    "title": "Ashtavadhana by Sri Ganesh Bhat Koppalatota",
+    "date": "2026-08-09",
+    "time": "17:00",
+    "category": "Avadhāna​",
+    "artists": [
+      "Sri Ganesh Bhat Koppalatota"
+    ],
+    "description": "Savor an evening of classical poetry and extempore versification.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779856163456",
+    "title": "Kavya Sangeeta by Sri Shankar Shanbhogue",
+    "date": "2026-08-26",
+    "time": "17:00",
+    "category": "Classical Music",
+    "artists": [
+      "Sri Shankar Shanbhogue"
+    ],
+    "description": "Partake in an evening where Kavya meets classical music.",
+    "venue": {
+      "name": "Bengaluru Gayana Samaja",
+      "address": "K.R. Road, Basavanagudi, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.255190769595!2d77.57065277373152!3d12.955515715233444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15f1d3b294a3%3A0xd44fedc142b03d95!2sBengaluru%20Gayana%20Samaaja!5e0!3m2!1sen!2sin!4v1779856122882!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779856563723",
+    "title": "Bharatanrityam by Smt. Nirupama Rajendra",
+    "date": "2026-09-19",
+    "time": "16:30",
+    "category": "Bharatanrityam",
+    "artists": [
+      "Smt. Nirupama Rajendra"
+    ],
+    "description": "Experience an evening of Bharatanrityam featuring the compositions of Padma Bhushan Śatāvadhānī Dr. R. Ganesh.",
+    "venue": {
+      "name": "Meenakshi Rangamancha Auditorium",
+      "address": "No 140, Kanakapura Main Rd, Doddakalasandra, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.3771203378665!2d77.55701307373023!3d12.883454916807406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3f8984a3f02f%3A0x66fe022270cb7ff7!2sMeenakshi%20Rangamancha%20Auditorium!5e0!3m2!1sen!2sin!4v1779856536838!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779857392407",
+    "title": "Shatadhara",
+    "date": "2026-12-04",
+    "time": "16:30",
+    "category": "Other",
+    "artists": [
+      "Shatavadhani Dr. R. Ganesh"
+    ],
+    "description": "Enjoy an evening of classical poetry, where Śatāvadhānī Dr. R. Ganesh will compose extempore verses.",
+    "venue": {
+      "name": "Mangala Mantapa",
+      "address": "NMKRV College, Jayanagar 3rd Block, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.624362724533!2d77.57958367373111!3d12.931847615751312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1599c4ca5479%3A0xdaa09fed06a15a7d!2sMangala%20Mantapa!5e0!3m2!1sen!2sin!4v1779861674479!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779857807464",
+    "title": "Contributions of Śatāvadhānī  Dr. R. Ganesh to Avadhana Kala and Kannada Kavya",
+    "date": "2026-09-24",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri. H.A. Vasuki",
+      "Sri. Ganesh Bhat Koppalatota"
+    ],
+    "description": "Sri H.A. Vasuki will speak on the contributions of Dr. R. Ganesh to the art of Avadhana kala. Sri Ganesh Bhat Koppalatota will discuss the contributions of Dr. R. Ganesh to Kannada poetry",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779857807463",
+    "title": "Contributions of Śatāvadhānī  Dr. R. Ganesh to Sanskrit Kavya, Pen Portraits, Biographies, Novel, Stories and Personal Essays",
+    "date": "2026-09-25",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri B. N. Shashi Kiran",
+      "Smt. Sreelalitha Rupanagudi"
+    ],
+    "description": "Sri B. N. Shashi Kiran will speak on the contributions of Dr. R. Ganesh to the fields of Sanskrit Kavya, pen portraits, and biographies. Smt. Sreelalitha Rupanagudi will discuss the contributions of Dr. R. Ganesh to novels, short stories, and personal essays.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779857807465",
+    "title": "Contributions of Śatāvadhānī  Dr. R. Ganesh to the fields of Literature, Aesthetics, Prosody, Translations and Adhyatma",
+    "date": "2026-09-26",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri. B. N. Shashi Kiran",
+      "Sri. Raghavendra Hebbalalu"
+    ],
+    "description": "Sri B. N. Shashi Kiran will speak on the contributions of Dr. R. Ganesh to the fields of literature, aesthetics and prosody. Sri Raghavendra Hebbalalu will discuss the contributions of Dr. R. Ganesh to the fields of translation and spirituality.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779857807466",
+    "title": "Panel Discussion: Personality of Śatāvadhānī Dr. R. Ganesh",
+    "date": "2026-09-27",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri Vikram Phadke",
+      "Sri KBS Ramachandra",
+      "Sri Prasad Bapat",
+      "Smt. Nirupama Rajendra"
+    ],
+    "description": "Panelists will discuss the personality of Dr. R. Ganesh",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779858834407",
+    "title": "Contributions of Śatāvadhānī Dr. R. Ganesh to Bharatiya Samskruti",
+    "date": "2026-09-28",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri Sandeep Balakrishna",
+      "Sri Hari Ravikumar",
+      "Sri Kashyap N. Naik"
+    ],
+    "description": "Sri Sandeep Balakrishna, Sri Hari Ravikumar and Sri Kashyap N. Naik will be discussing the contributions of Dr. R. Ganesh to Bharatiya Samskruti.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779859219290",
+    "title": "Contributions of Śatāvadhānī Dr. R. Ganesh to Music, Bharatanrityam, Yakshagana, Dance and Stage Productions",
+    "date": "2026-09-29",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Dr. Ranjani Vasuki",
+      "Dr. Shobha Shashikumar",
+      "Smt. Nirupama Rajendra"
+    ],
+    "description": "Dr. Ranjani Vasuki will discuss the contributions of Dr. R. Ganesh to the field of classical music. Dr. Shobha Shashikumar will speak on the contributions of Dr. R. Ganesh to the fields of Bharatanrityam and Yakshagana. Smt. Nirupama Rajendra will discuss the contributions of Dr. R. Ganesh to the fields of dance and stage productions.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779859674716",
+    "title": "Contributions of Śatāvadhānī Dr. R. Ganesh to Indian Classical Arts | Concluding Remarks | Valedictory",
+    "date": "2026-09-30",
+    "time": "18:00",
+    "category": "Vidvadgoṣṭhi",
+    "artists": [
+      "Sri Arjun Bharadwaj"
+    ],
+    "description": "Sri Arjun Bharadwaj will discuss the contributions of R. Ganesh to the fields of Indian classical arts. Dr. R. Ganesh will conclude the series of panel discussions with his concluding remarks, followed by the valedictory session.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779860167593",
+    "title": "Bharatanrityam by Dr. Shobha Shashikumar",
+    "date": "2026-10-04",
+    "time": "17:00",
+    "category": "Bharatanrityam",
+    "artists": [
+      "Dr. Shobha Shashikumar"
+    ],
+    "description": "Savor an evening of Bharatanrityam featuring the compositions of Dr. R. Ganesh",
+    "venue": {
+      "name": "Shashwathi Auditorium",
+      "address": "NMKRV college campus, Jayanagar, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.6147301188153!2d77.57810567373109!3d12.93246571573775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1599dfb38073%3A0x1ed17211b81113dc!2sShashwathi%20Auditorium!5e0!3m2!1sen!2sin!4v1779860139947!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779860795096",
+    "title": "Vachana-Vyakhyana",
+    "date": "2026-11-11",
+    "time": "18:00",
+    "category": "Other",
+    "artists": [
+      "Smt. Samudyata",
+      "Sri B. N. Shashi Kiran"
+    ],
+    "description": "Enjoy an evening of Vachana-Vyakhyana featuring the compositions of Dr. R. Ganesh",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779861010222",
+    "title": "Gana-Vyakhyana",
+    "date": "2026-11-12",
+    "time": "18:00",
+    "category": "Other",
+    "artists": [
+      "Sri Kashyap N. Naik",
+      "Sri Arjun Bharadwaj"
+    ],
+    "description": "Enjoy an evening of Gana-Vyakhyana featuring the compositions of Dr. R. Ganesh",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "evt1779861497454",
+    "title": "Ekavyakti Yakshagana: Performance and Discussion",
+    "date": "2026-11-13",
+    "time": "18:00",
+    "category": "Other",
+    "artists": [
+      "Smt. Pramada Upadhya",
+      "Sri Mantap Prabhakar Upadhya",
+      "Sri Sripad Gadde"
+    ],
+    "description": "Smt. Pramada Upadhya will present an Ekavyakti Yakshagana performance, followed by a discussion on the art form by Sri Mantap Prabhakar Upadhya and Sri Sripad Gadde.",
+    "venue": {
+      "name": "Gokhale Institute of Public Affairs",
+      "address": "Bull Temple Road, N. R. Colony, Bengaluru",
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5031609065636!2d77.56419327373128!3d12.93962271558129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b9049dfd5%3A0xf18422c3361a4d49!2sGokhale%20Institute%20of%20Public%20Affairs!5e0!3m2!1sen!2sin!4v1779855611476!5m2!1sen!2sin"
+    },
+    "registrationEnabled": false,
+    "registrationUrl": "",
     "featured": false,
     "image": ""
   }

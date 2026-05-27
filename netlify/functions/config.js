@@ -14,12 +14,10 @@ exports.handler = async function(event) {
   }
 
   const config = {
-    adminUser: process.env.ADMIN_USER || '',
-    adminPass: process.env.ADMIN_PASS || '',
-    githubToken: process.env.GITHUB_TOKEN || '',
-    githubRepo: process.env.GITHUB_REPO || '',
-    githubBranch: process.env.GITHUB_BRANCH || 'master'
-  };
+  githubToken: process.env.GITHUB_TOKEN || '',
+  githubRepo: process.env.GITHUB_REPO || '',
+  githubBranch: process.env.GITHUB_BRANCH || 'master'
+};
   
   return {
     statusCode: 200,
