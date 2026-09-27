@@ -224,7 +224,7 @@ const EVENTS_DATA = [
     "artists": [
       "Sri Vikram Phadke",
       "Sri KBS Ramachandra",
-      "Sri Prasad Bapat",
+      "Sri. H.A. Vasuki",
       "Smt. Nirupama Rajendra"
     ],
     "description": "Panelists will discuss the personality of Dr. R. Ganesh",
