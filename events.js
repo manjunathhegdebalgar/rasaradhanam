@@ -115,7 +115,7 @@ const EVENTS_DATA = [
   {
     "id": "evt1779856563723",
     "title": "Bharatanrityam by Smt. Nirupama Rajendra",
-    "date": "2026-09-19",
+    "date": "2026-09-20",
     "time": "16:30",
     "category": "Bharatanrityam",
     "artists": [
@@ -218,7 +218,7 @@ const EVENTS_DATA = [
   {
     "id": "evt1779857807466",
     "title": "Panel Discussion: Personality of Śatāvadhānī Dr. R. Ganesh",
-    "date": "2026-09-27",
+    "date": "2026-09-28",
     "time": "18:00",
     "category": "Vidvadgoṣṭhi",
     "artists": [
@@ -241,7 +241,7 @@ const EVENTS_DATA = [
   {
     "id": "evt1779858834407",
     "title": "Contributions of Śatāvadhānī Dr. R. Ganesh to Bharatiya Samskruti",
-    "date": "2026-09-28",
+    "date": "2026-09-27",
     "time": "18:00",
     "category": "Vidvadgoṣṭhi",
     "artists": [
